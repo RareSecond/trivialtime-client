@@ -26,9 +26,18 @@ const usePlayers = () => {
     ['asc']
   );
 
+  const eligibilePlayers = _.filter(players, player => {
+    return player.order === 0;
+  });
+
   const currentPlayer = buzzedPlayers[0] || null;
 
-  return { allPlayers: players, buzzedPlayers, currentPlayer };
+  return {
+    allPlayers: players,
+    buzzedPlayers,
+    currentPlayer,
+    eligibilePlayers,
+  };
 };
 
 export default usePlayers;

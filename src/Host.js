@@ -129,6 +129,8 @@ const Host = () => {
         No player for question {question}
         <br />
         {players.allPlayers.length} total players
+        <br />
+        {players.eligibilePlayers.length} players can still answer
       </NoPlayer>
       <DeclineButtons>
         <NextQuestionButton onClick={nextQuestion}>
