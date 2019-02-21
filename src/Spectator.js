@@ -14,6 +14,9 @@ import NextPlayers from './SpectatorView/NextPlayers';
 import TotalScores from './SpectatorView/TotalScores';
 
 const Wrapper = styled.div`
+  min-height: 100vh;
+  padding: 100px 5%;
+  width: 100%;
   display: grid;
   height: 100%;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;

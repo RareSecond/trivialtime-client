@@ -23,6 +23,7 @@ const Theme = ({ children }) => (
       silver: '#bdc3c7',
       turquoise: '#1abc9c',
       wetAsphalt: '#34495e',
+      alizarin: '#e74c3c',
     }}
   >
     {children}

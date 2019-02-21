@@ -10,9 +10,8 @@ var noSleep = new NoSleep();
 
 const Wrapper = styled.div`
   min-height: 100vh;
-  width: 90%;
-  margin: 0 auto;
   padding: 100px 5%;
+  width: 100%;
 `;
 
 const SelectionWrapper = styled.div`
@@ -75,7 +74,7 @@ class RoleSelection extends React.Component {
     const { role } = this.state;
 
     return (
-      <Wrapper>
+      <React.Fragment>
         {role ? (
           role === 'player' ? (
             <Player />
@@ -118,7 +117,7 @@ class RoleSelection extends React.Component {
             </RoleButton>
           </SelectionWrapper>
         )}
-      </Wrapper>
+      </React.Fragment>
     );
   }
 }
