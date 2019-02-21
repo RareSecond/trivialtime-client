@@ -6,15 +6,25 @@ import constants from './constants';
 import PlayerOverview from './PlayerOverview';
 import Buzzer from './Buzzer';
 
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  background-color: ${props => props.theme.clouds};
+  width: 100%;
+  padding: 20px;
+  justify-content: center;
+`;
+
 const UsernameInput = styled.input`
   width: 100%;
   display: block;
   border: none;
-  border-bottom: 2px solid #a6d3a0;
+  border: 2px solid ${props => props.theme.turquoise};
   text-align: center;
   text-transform: uppercase;
   font-size: 15vw;
   font-family: 'Staatliches', cursive;
+  color: ${props => props.theme.midnightBlue};
 
   &:focus {
     outline: none;
@@ -23,7 +33,8 @@ const UsernameInput = styled.input`
 
 const Button = styled.div`
   margin: 20px auto;
-  background-color: #a6d3a0;
+  background-color: ${props => props.theme.turquoise};
+  width: 100%;
   color: white;
   padding: 20px;
   box-sizing: border-box;
@@ -31,6 +42,7 @@ const Button = styled.div`
   text-transform: uppercase;
   font-size: 15vw;
   font-family: 'Staatliches', cursive;
+  border-radius: 10px;
 `;
 
 class Player extends React.Component {
@@ -87,7 +99,7 @@ class Player extends React.Component {
     const { lockedIn, username } = this.state;
 
     return (
-      <div>
+      <Wrapper>
         {!lockedIn ? (
           <React.Fragment>
             <UsernameInput
@@ -98,11 +110,12 @@ class Player extends React.Component {
             <Button onClick={this.join}>Doe mee!</Button>
           </React.Fragment>
         ) : (
-          <Buzzer username={username} />
+          <React.Fragment>
+            <Buzzer username={username} />
+            <Button onClick={this.pass}>Pas</Button>
+          </React.Fragment>
         )}
-        <PlayerOverview />
-        <Button onClick={this.pass}>Pas</Button>
-      </div>
+      </Wrapper>
     );
   }
 }

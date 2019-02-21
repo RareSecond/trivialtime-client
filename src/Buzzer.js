@@ -4,6 +4,13 @@ import Pusher from 'pusher-js';
 import styled from 'styled-components';
 import constants from './constants';
 
+const Wrapper = styled.div`
+  flex: 1 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 const Buzzer = styled.img`
   width: 100%;
   filter: grayscale(${props => (props.isPressed ? 0 : '0.7')});
@@ -43,11 +50,13 @@ class Player extends React.Component {
     const { pressedButton } = this.state;
 
     return (
-      <Buzzer
-        onClick={this.buzz}
-        src="https://lh3.ggpht.com/Cll38pXB-_q861syyIhVDj54sl9j8ZZvH4V_41bXoVZffeW6dYklj1lp63pv7gtZi-o"
-        isPressed={pressedButton}
-      />
+      <Wrapper>
+        <Buzzer
+          onClick={this.buzz}
+          src="https://lh3.ggpht.com/Cll38pXB-_q861syyIhVDj54sl9j8ZZvH4V_41bXoVZffeW6dYklj1lp63pv7gtZi-o"
+          isPressed={pressedButton}
+        />
+      </Wrapper>
     );
   }
 }
