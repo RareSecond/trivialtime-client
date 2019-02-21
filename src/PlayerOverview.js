@@ -6,12 +6,31 @@ import styled from 'styled-components';
 import constants from './constants';
 
 const Header = styled.div`
-  margin: 10 0;
+  margin-bottom: -15px;
   text-align: center;
   text-transform: uppercase;
   font-size: 15vw;
+
+  @media only screen and (min-width: 700px) {
+    font-size: 50px;
+  }
+
   font-family: 'Staatliches', cursive;
   color: #7fc6a4;
+`;
+
+const SubHeader = styled.div`
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 5vw;
+
+  @media only screen and (min-width: 700px) {
+    font-size: 20px;
+  }
+
+  font-family: 'Staatliches', cursive;
+  color: #7fc6a4;
+  margin-bottom: 15px;
 `;
 
 const PlayerCard = styled.div`
@@ -24,6 +43,10 @@ const PlayerCard = styled.div`
   text-transform: uppercase;
   font-size: 7vw;
   font-family: 'Staatliches', cursive;
+
+  @media only screen and (min-width: 700px) {
+    font-size: 30px;
+  }
 `;
 
 const ActivePlayer = styled(PlayerCard)`
@@ -72,8 +95,12 @@ class PlayerOverview extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     const newPlayerOn1 = _.find(this.state.players, ['order', 1]);
     const oldPlayerOn1 = _.find(prevState.players, ['order', 1]);
-    if (newPlayerOn1 && !oldPlayerOn1) {
-      console.log('hier');
+    if (
+      this.props.host &&
+      newPlayerOn1 &&
+      !oldPlayerOn1 &&
+      _.size(prevState.players) > 0
+    ) {
       new Audio(
         'http://soundbible.com/mp3/service-bell_daniel_simion.mp3'
       ).play();
@@ -82,6 +109,8 @@ class PlayerOverview extends React.Component {
 
   render() {
     const { players } = this.state;
+    const { hideHeader } = this.props;
+
     const buzzedPlayers = _.filter(players, player => {
       return player.order > 0;
     });
@@ -94,7 +123,11 @@ class PlayerOverview extends React.Component {
 
     return (
       <div>
-        <Header>Spelers</Header>
+        {!hideHeader && <Header>Spelers</Header>}
+        <SubHeader>
+          {_.size(players)} speler
+          {_.size(players) === 1 ? '' : 's'}
+        </SubHeader>
         {_.map(_.orderBy(buzzedPlayers, ['order'], ['asc']), player => {
           return (
             <ActivePlayer key={player.username}>

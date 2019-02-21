@@ -1,3 +1,3 @@
 export default {
-  apiUrl: 'https://trivialtime.herokuapp.com/api',
+  apiUrl: 'http://192.168.0.154:8080/api',
 };

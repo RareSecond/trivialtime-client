@@ -1,7 +1,12 @@
 import React from 'react';
-import { hot } from 'react-hot-loader';
+import { hot } from 'react-hot-loader/root';
 import RoleSelection from './RoleSelection';
+import Skeleton from './Skeleton';
 
-const App = () => <RoleSelection />;
+const App = () => (
+  <Skeleton>
+    <RoleSelection />
+  </Skeleton>
+);
 
-export default hot(module)(App);
+export default hot(App);

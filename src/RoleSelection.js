@@ -1,32 +1,56 @@
 import React from 'react';
 import styled from 'styled-components';
+import NoSleep from 'nosleep.js';
+import { MdAirplay, MdPlayCircleFilled, MdMic } from 'react-icons/md';
 import Player from './Player';
 import Host from './Host';
+import Spectator from './Spectator';
+
+var noSleep = new NoSleep();
 
 const Wrapper = styled.div`
   min-height: 100vh;
   width: 90%;
-  max-width: 500px;
   margin: 0 auto;
-  padding: 0 5%;
+  padding: 100px 5%;
 `;
 
-const HeaderImage = styled.img`
-  width: 75%;
-  display: block;
-  margin: 0 auto 50px;
+const SelectionWrapper = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 const RoleButton = styled.div`
   margin: 20px auto;
-  background-color: #a6d3a0;
+  background-color: ${props => props.theme.turquoise};
   color: white;
   padding: 20px;
   box-sizing: border-box;
   text-align: center;
   text-transform: uppercase;
-  font-size: 15vw;
-  font-family: 'Staatliches', cursive;
+  font-size: 30px;
+  width: 600px;
+  max-width: 90%;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+
+  @media only screen and (min-width: 700px) {
+    font-size: 50px;
+  }
+`;
+
+const RoleIcon = styled.span`
+  margin-right: 10px;
+  flex: 0 0 auto;
+`;
+
+const RoleText = styled.span`
+  flex-grow: 1;
 `;
 
 class RoleSelection extends React.Component {
@@ -34,10 +58,17 @@ class RoleSelection extends React.Component {
     role: '',
   };
 
+  componentDidMount() {
+    window.addEventListener('beforeunload', event => {
+      event.returnValue = 'Your custom message.';
+    });
+  }
+
   setRole = role => {
     this.setState({
       role,
     });
+    noSleep.enable();
   };
 
   render() {
@@ -45,30 +76,47 @@ class RoleSelection extends React.Component {
 
     return (
       <Wrapper>
-        <HeaderImage src="https://pbs.twimg.com/media/C1fov7yXUAA_Et0.jpg" />
         {role ? (
           role === 'player' ? (
             <Player />
-          ) : (
+          ) : role === 'host' ? (
             <Host />
+          ) : (
+            <Spectator />
           )
         ) : (
-          <React.Fragment>
+          <SelectionWrapper>
             <RoleButton
               onClick={() => {
                 this.setRole('player');
               }}
             >
-              Player
+              <RoleIcon>
+                <MdPlayCircleFilled />
+              </RoleIcon>
+              <RoleText>Player</RoleText>
             </RoleButton>
             <RoleButton
               onClick={() => {
                 this.setRole('host');
               }}
             >
-              Quizmaster
+              <RoleIcon>
+                <MdMic />
+              </RoleIcon>
+              <RoleText>Quizmaster</RoleText>
             </RoleButton>
-          </React.Fragment>
+            <RoleButton
+              onClick={() => {
+                this.setRole('spectator');
+              }}
+            >
+              <RoleIcon>
+                <MdAirplay />
+              </RoleIcon>
+              <RoleText>Spectator</RoleText>
+            </RoleButton>
+          </SelectionWrapper>
         )}
       </Wrapper>
     );

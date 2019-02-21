@@ -4,6 +4,7 @@ import _ from 'lodash';
 import styled from 'styled-components';
 import constants from './constants';
 import PlayerOverview from './PlayerOverview';
+import Buzzer from './Buzzer';
 
 const UsernameInput = styled.input`
   width: 100%;
@@ -32,13 +33,9 @@ const Button = styled.div`
   font-family: 'Staatliches', cursive;
 `;
 
-const Buzzer = styled.img`
-  width: 100%;
-`;
-
 class Player extends React.Component {
   state = {
-    username: '',
+    username: localStorage.getItem('username') || '',
     lockedIn: false,
   };
 
@@ -49,16 +46,21 @@ class Player extends React.Component {
   };
 
   join = () => {
-    this.setState({
-      lockedIn: true,
-    });
-    axios({
-      method: 'post',
-      url: `${constants.apiUrl}/join`,
-      data: {
-        username: this.state.username,
-      },
-    });
+    const { username } = this.state;
+
+    if (username) {
+      this.setState({
+        lockedIn: true,
+      });
+      localStorage.setItem('username', username);
+      axios({
+        method: 'post',
+        url: `${constants.apiUrl}/join`,
+        data: {
+          username,
+        },
+      });
+    }
   };
 
   buzz = () => {
@@ -71,8 +73,18 @@ class Player extends React.Component {
     });
   };
 
+  pass = () => {
+    axios({
+      method: 'post',
+      url: `${constants.apiUrl}/pass`,
+      data: {
+        username: this.state.username,
+      },
+    });
+  };
+
   render() {
-    const { lockedIn } = this.state;
+    const { lockedIn, username } = this.state;
 
     return (
       <div>
@@ -81,16 +93,15 @@ class Player extends React.Component {
             <UsernameInput
               onChange={this.setUsername}
               placeholder="Your name"
+              value={username}
             />
             <Button onClick={this.join}>Doe mee!</Button>
           </React.Fragment>
         ) : (
-          <Buzzer
-            onClick={this.buzz}
-            src="https://lh3.ggpht.com/Cll38pXB-_q861syyIhVDj54sl9j8ZZvH4V_41bXoVZffeW6dYklj1lp63pv7gtZi-o"
-          />
+          <Buzzer username={username} />
         )}
         <PlayerOverview />
+        <Button onClick={this.pass}>Pas</Button>
       </div>
     );
   }

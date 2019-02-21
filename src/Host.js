@@ -42,6 +42,13 @@ class Host extends React.Component {
     });
   };
 
+  nextQuestion = () => {
+    axios({
+      method: 'post',
+      url: `${constants.apiUrl}/next`,
+    });
+  };
+
   reset = () => {
     axios({
       method: 'post',
@@ -54,8 +61,9 @@ class Host extends React.Component {
       <div>
         <Correct onClick={this.markAsCorrect}>Correct</Correct>
         <Incorrect onClick={this.markAsIncorrect}>Incorrect</Incorrect>
+        <Incorrect onClick={this.nextQuestion}>Next question</Incorrect>
+        <PlayerOverview host />
         <Reset onClick={this.reset}>Reset</Reset>
-        <PlayerOverview />
       </div>
     );
   }
