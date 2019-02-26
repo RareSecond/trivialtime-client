@@ -54,7 +54,7 @@ class Player extends React.Component {
         <Buzzer
           onClick={this.buzz}
           src="https://lh3.ggpht.com/Cll38pXB-_q861syyIhVDj54sl9j8ZZvH4V_41bXoVZffeW6dYklj1lp63pv7gtZi-o"
-          isPressed={pressedButton}
+          isPressed={this.props.buzzed}
         />
       </Wrapper>
     );

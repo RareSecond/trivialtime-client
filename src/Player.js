@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import _ from 'lodash';
 import styled from 'styled-components';
 import constants from './constants';
 import PlayerOverview from './PlayerOverview';
 import Buzzer from './Buzzer';
+import usePlayers from './usePlayers';
 
 const Wrapper = styled.div`
   display: flex;
@@ -43,27 +44,30 @@ const Button = styled.div`
   font-size: 15vw;
   font-family: 'Staatliches', cursive;
   border-radius: 10px;
+  opacity: ${props => (props.disabled ? 0.2 : 1)};
 `;
 
-class Player extends React.Component {
-  state = {
-    username: localStorage.getItem('username') || '',
-    lockedIn: false,
+const Player = () => {
+  const [username, setUsername] = useState(
+    localStorage.getItem('username') || ''
+  );
+  const [lockedIn, setLockedIn] = useState(false);
+
+  const lockUsername = event => {
+    setUsername(event.target.value);
   };
 
-  setUsername = event => {
-    this.setState({
-      username: event.target.value,
-    });
-  };
+  const players = usePlayers() || {};
+  const currentPlayer = _.find(players.allPlayers, [
+    'username',
+    _.toLower(username),
+  ]);
 
-  join = () => {
-    const { username } = this.state;
+  const currentOrder = currentPlayer && currentPlayer.order;
 
+  const join = () => {
     if (username) {
-      this.setState({
-        lockedIn: true,
-      });
+      setLockedIn(true);
       localStorage.setItem('username', username);
       axios({
         method: 'post',
@@ -75,49 +79,37 @@ class Player extends React.Component {
     }
   };
 
-  buzz = () => {
-    axios({
-      method: 'post',
-      url: `${constants.apiUrl}/buzz`,
-      data: {
-        username: this.state.username,
-      },
-    });
-  };
-
-  pass = () => {
+  const pass = () => {
     axios({
       method: 'post',
       url: `${constants.apiUrl}/pass`,
       data: {
-        username: this.state.username,
+        username,
       },
     });
   };
 
-  render() {
-    const { lockedIn, username } = this.state;
-
-    return (
-      <Wrapper>
-        {!lockedIn ? (
-          <React.Fragment>
-            <UsernameInput
-              onChange={this.setUsername}
-              placeholder="Your name"
-              value={username}
-            />
-            <Button onClick={this.join}>Doe mee!</Button>
-          </React.Fragment>
-        ) : (
-          <React.Fragment>
-            <Buzzer username={username} />
-            <Button onClick={this.pass}>Pas</Button>
-          </React.Fragment>
-        )}
-      </Wrapper>
-    );
-  }
-}
+  return (
+    <Wrapper>
+      {!lockedIn ? (
+        <React.Fragment>
+          <UsernameInput
+            onChange={lockUsername}
+            placeholder="Your name"
+            value={username}
+          />
+          <Button onClick={join}>Doe mee!</Button>
+        </React.Fragment>
+      ) : (
+        <React.Fragment>
+          <Buzzer username={username} buzzed={currentOrder > 0} />
+          <Button onClick={pass} disabled={currentOrder < 0}>
+            Pas
+          </Button>
+        </React.Fragment>
+      )}
+    </Wrapper>
+  );
+};
 
 export default Player;
