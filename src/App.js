@@ -1,12 +1,28 @@
 import React from 'react';
 import { hot } from 'react-hot-loader/root';
+import { initializeApp, database } from 'firebase';
 import RoleSelection from './RoleSelection';
 import Skeleton from './Skeleton';
+import DatabaseContext from './DatabaseContext';
+
+const config = {
+  apiKey: 'AIzaSyDk5fA_myXb5I91RyKZBd5RpdZe63qIlNQ',
+  authDomain: 'trivialtime-jd.firebaseapp.com',
+  databaseURL: 'https://trivialtime-jd.firebaseio.com',
+  projectId: 'trivialtime-jd',
+  storageBucket: 'trivialtime-jd.appspot.com',
+  messagingSenderId: '1096818248339',
+};
+initializeApp(config);
+
+const db = database();
 
 const App = () => (
-  <Skeleton>
-    <RoleSelection />
-  </Skeleton>
+  <DatabaseContext.Provider value={db}>
+    <Skeleton>
+      <RoleSelection />
+    </Skeleton>
+  </DatabaseContext.Provider>
 );
 
 export default hot(App);

@@ -13,6 +13,7 @@
   "dependencies": {
     "@nivo/bar": "^0.52.1",
     "axios": "^0.18.0",
+    "firebase": "^5.8.5",
     "immutability-helper": "^2.8.1",
     "lodash": "^4.17.10",
     "nosleep.js": "^0.9.0",
