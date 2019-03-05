@@ -12,6 +12,13 @@ import TotalPlayers from './SpectatorView/TotalPlayers';
 import CurrentQuestion from './SpectatorView/CurrentQuestion';
 import NextPlayers from './SpectatorView/NextPlayers';
 import TotalScores from './SpectatorView/TotalScores';
+import {
+  getNextPlayer,
+  getEligiblePlayers,
+  getBuzzedPlayers,
+  getPlayersByScore,
+} from './playerFunctions';
+import useDbValue from './useDbValue';
 
 const Wrapper = styled.div`
   min-height: 100vh;
@@ -26,68 +33,24 @@ const Wrapper = styled.div`
   justify-items: stretch;
 `;
 
-class Spectator extends React.Component {
-  state = {
-    players: [],
-  };
+const Spectator = () => {
+  const players = useDbValue('users') || [];
+  const eligibilePlayers = getEligiblePlayers(players);
+  const [currentPlayer, ...nextPlayers] = getBuzzedPlayers(players);
+  const playersByScore = getPlayersByScore(players);
+  console.log(players);
 
-  componentDidMount() {
-    axios({
-      method: 'get',
-      url: `${constants.apiUrl}`,
-    }).then(response => {
-      this.setState({
-        players: response.data,
-      });
-    });
-    this.socket = new Pusher('d61e39bd8719a7ff7ea6', {
-      cluster: 'eu',
-    });
-    this.channel = this.socket.subscribe('buzzer-channel');
-    this.channel.bind('players-update', data => {
-      this.setState({
-        players: data.message,
-      });
-    });
-  }
-
-  render() {
-    const { players } = this.state;
-
-    const buzzedPlayers = _.orderBy(
-      _.filter(players, player => {
-        return player.order > 0;
-      }),
-      ['order'],
-      ['asc']
-    );
-
-    const [currentPlayer, ...nextPlayers] = buzzedPlayers;
-
-    const eligibilePlayers = _.filter(players, player => {
-      return player.order === 0;
-    });
-
-    const playersByScore = _.orderBy(
-      _.filter(players, player => {
-        return player.score > 0;
-      }),
-      ['score'],
-      ['desc']
-    );
-
-    return (
-      <Wrapper>
-        <CurrentPlayer player={currentPlayer} />
-        <EligiblePlayers players={eligibilePlayers} />
-        <TotalPlayers players={players} />
-        <CurrentQuestion />
-        <NextPlayers players={nextPlayers} />
-        <TodayScores lePlayers={playersByScore} />
-        <TotalScores />
-      </Wrapper>
-    );
-  }
-}
+  return (
+    <Wrapper>
+      <CurrentPlayer player={currentPlayer} />
+      <EligiblePlayers players={eligibilePlayers} />
+      <TotalPlayers players={players} />
+      <CurrentQuestion />
+      <NextPlayers players={nextPlayers} />
+      <TodayScores lePlayers={playersByScore} />
+      <TotalScores />
+    </Wrapper>
+  );
+};
 
 export default Spectator;

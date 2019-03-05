@@ -19,6 +19,26 @@ export const getEligiblePlayers = players => {
   });
 };
 
+export const getBuzzedPlayers = players => {
+  return _.orderBy(
+    _.filter(toArray(players), player => {
+      return player.buzzedAt;
+    }),
+    ['buzzedAt'],
+    ['asc']
+  );
+};
+
+export const getPlayersByScore = players => {
+  return _.orderBy(
+    _.filter(toArray(players), player => {
+      return player.score > 0;
+    }),
+    ['score'],
+    ['desc']
+  );
+};
+
 export const generateResettedPlayers = players => {
   const newPlayers = {};
 

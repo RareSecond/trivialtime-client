@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 import styled from 'styled-components';
 import BlockTitle from '../BlockTitle';
 import BlockContent from '../BlockContent';
@@ -14,7 +15,7 @@ const TotalPlayers = ({ players }) => (
   <Wrapper>
     <BlockTitle>Total Players</BlockTitle>
     <BlockContent center>
-      <ContentText>{players.length}</ContentText>
+      <ContentText>{_.size(players)}</ContentText>
     </BlockContent>
   </Wrapper>
 );
