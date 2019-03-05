@@ -58,9 +58,11 @@ class RoleSelection extends React.Component {
   };
 
   componentDidMount() {
-    window.addEventListener('beforeunload', event => {
-      event.returnValue = 'Your custom message.';
-    });
+    if (PRODUCTION) {
+      window.addEventListener('beforeunload', event => {
+        event.returnValue = 'Your custom message.';
+      });
+    }
   }
 
   setRole = role => {
