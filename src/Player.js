@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import _ from 'lodash';
 import styled from 'styled-components';
@@ -6,6 +6,8 @@ import constants from './constants';
 import PlayerOverview from './PlayerOverview';
 import Buzzer from './Buzzer';
 import usePlayers from './usePlayers';
+import useDb from './useDb';
+import useDbValue from './useDbValue';
 
 const Wrapper = styled.div`
   display: flex;
@@ -52,41 +54,56 @@ const Player = () => {
     localStorage.getItem('username') || ''
   );
   const [lockedIn, setLockedIn] = useState(false);
+  const db = useDb();
+
+  const userKey = localStorage.getItem('userKey');
+  const player = useDbValue(userKey && `users/${userKey}`);
 
   const lockUsername = event => {
     setUsername(event.target.value);
   };
 
-  const players = usePlayers() || {};
-  const currentPlayer = _.find(players.allPlayers, [
-    'username',
-    _.toLower(username),
-  ]);
-
-  const currentOrder = currentPlayer && currentPlayer.order;
-
   const join = () => {
     if (username) {
-      setLockedIn(true);
       localStorage.setItem('username', username);
-      axios({
-        method: 'post',
-        url: `${constants.apiUrl}/join`,
-        data: {
-          username,
-        },
-      });
+      db.ref('users')
+        .orderByChild('username')
+        .equalTo(username)
+        .limitToFirst(1)
+        .once('value', snapshot => {
+          const user = snapshot.val();
+
+          if (!user) {
+            db.ref('users')
+              .push({
+                username,
+                active: true,
+              })
+              .then(res => {
+                localStorage.setItem('userKey', res.key);
+                setLockedIn(true);
+              });
+          } else {
+            const currentUserKey = Object.keys(user)[0];
+            localStorage.setItem('userKey', currentUserKey);
+            db.ref(`users/${currentUserKey}`)
+              .update({
+                active: true,
+              })
+              .then(() => {
+                setLockedIn(true);
+              });
+          }
+        });
     }
   };
 
   const pass = () => {
-    axios({
-      method: 'post',
-      url: `${constants.apiUrl}/pass`,
-      data: {
-        username,
-      },
-    });
+    if (!player.buzzedAt) {
+      db.ref(`users/${userKey}`).update({
+        incorrect: true,
+      });
+    }
   };
 
   return (
@@ -102,8 +119,12 @@ const Player = () => {
         </React.Fragment>
       ) : (
         <React.Fragment>
-          <Buzzer username={username} buzzed={currentOrder > 0} />
-          <Button onClick={pass} disabled={currentOrder < 0}>
+          <Buzzer
+            username={username}
+            buzzed={player && player.buzzedAt}
+            incorrect={player && player.incorrect}
+          />
+          <Button onClick={pass} disabled={player && player.incorrect}>
             Pas
           </Button>
         </React.Fragment>
