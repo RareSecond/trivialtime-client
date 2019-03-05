@@ -5,12 +5,17 @@ const useDbValue = dbPath => {
   const [value, setValue] = useState();
   const db = useContext(DatabaseContext);
 
-  useEffect(() => {
-    const document = db.ref(dbPath);
-    document.on('value', updatedDoc => {
-      setValue(updatedDoc.val());
-    });
-  });
+  useEffect(
+    () => {
+      if (dbPath) {
+        const document = db.ref(dbPath);
+        document.on('value', updatedDoc => {
+          setValue(updatedDoc.val());
+        });
+      }
+    },
+    [dbPath]
+  );
 
   return value;
 };
