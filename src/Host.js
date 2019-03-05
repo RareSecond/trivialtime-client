@@ -107,7 +107,9 @@ const Host = () => {
   };
 
   const nextQuestion = () => {
-    db.ref('currentQuestion').set(currentQuestion + 1);
+    db.ref('currentQuestion')
+      .set(currentQuestion + 1)
+      .then(resetPlayers());
   };
 
   if (nextPlayer) {
