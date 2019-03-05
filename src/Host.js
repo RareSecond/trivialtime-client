@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 import styled from 'styled-components';
-import { MdCheck, MdClear, MdSkipNext } from 'react-icons/md';
-import usePlayers from './usePlayers';
-import usePusher from './usePusher';
-import constants from './constants';
+import { MdCheck, MdClear, MdSkipNext, MdCached } from 'react-icons/md';
+import _ from 'lodash';
+import useDbValue from './useDbValue';
+import useDb from './useDb';
+import {
+  getNextPlayer,
+  generateResettedPlayers,
+  getEligiblePlayers,
+} from './playerFunctions';
 
 const Wrapper = styled.div`
   display: flex;
@@ -61,55 +65,56 @@ const DeclineButtons = styled.div`
   display: flex;
   justify-content: center;
   flex: 0 0 auto;
+  flex-wrap: wrap;
 `;
 
 const NextQuestionButton = styled(Button)`
   background-color: ${props => props.theme.midnightBlue};
   padding: 15px 30vw;
+  margin-bottom: 5px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 `;
 
 const Host = () => {
+  const db = useDb();
+  const allPlayers = useDbValue('users');
+  const currentQuestion = useDbValue('currentQuestion');
+
+  const nextPlayer = getNextPlayer(allPlayers);
+
+  const resetPlayers = () => {
+    db.ref('users').set(generateResettedPlayers(allPlayers));
+  };
+
   const markAsCorrect = () => {
-    axios({
-      method: 'post',
-      url: `${constants.apiUrl}/correct`,
-    });
+    db.ref()
+      .update({
+        [`users/${nextPlayer.key}/buzzedAt`]: null,
+        [`users/${nextPlayer.key}/score`]: (nextPlayer.score || 0) + 1,
+        currentQuestion: currentQuestion + 1,
+      })
+      .then(resetPlayers());
   };
 
   const markAsIncorrect = () => {
-    axios({
-      method: 'post',
-      url: `${constants.apiUrl}/incorrect`,
+    db.ref(`users/${nextPlayer.key}`).update({
+      buzzedAt: null,
+      incorrect: true,
     });
   };
 
   const nextQuestion = () => {
-    axios({
-      method: 'post',
-      url: `${constants.apiUrl}/next`,
-    });
+    db.ref('currentQuestion').set(currentQuestion + 1);
   };
 
-  const players = usePlayers();
-  const { currentPlayer } = players;
-  useEffect(
-    () => {
-      if (currentPlayer && currentPlayer.username) {
-        window.navigator.vibrate([150, 300, 100, 50, 500]);
-      }
-    },
-    [currentPlayer]
-  );
-
-  const [question, setQuestion] = useState(1);
-
-  usePusher('next-question', data => setQuestion(data.currentQuestion));
-
-  if (currentPlayer) {
+  if (nextPlayer) {
     return (
       <Wrapper hasPlayer>
         <PlayerName>
-          <NameText>{currentPlayer.username}</NameText>
+          <NameText>{nextPlayer.username}</NameText>
         </PlayerName>
         <AnswerButtons>
           <IncorrectButton onClick={markAsIncorrect}>
@@ -126,15 +131,18 @@ const Host = () => {
   return (
     <Wrapper>
       <NoPlayer>
-        No player for question {question}
+        No player for question {currentQuestion}
         <br />
-        {players.allPlayers.length} total players
+        {_.size(allPlayers)} total players
         <br />
-        {players.eligibilePlayers.length} players can still answer
+        {getEligiblePlayers(allPlayers).length} players can still answer
       </NoPlayer>
       <DeclineButtons>
         <NextQuestionButton onClick={nextQuestion}>
           <MdSkipNext />
+        </NextQuestionButton>
+        <NextQuestionButton onClick={resetPlayers}>
+          <MdCached />
         </NextQuestionButton>
       </DeclineButtons>
     </Wrapper>
