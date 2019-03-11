@@ -9,6 +9,7 @@ import {
   generateResettedPlayers,
   getEligiblePlayers,
 } from './playerFunctions';
+import StartQuiz from './Quizmaster/StartQuiz';
 
 const Wrapper = styled.div`
   display: flex;
@@ -82,6 +83,7 @@ const Host = () => {
   const db = useDb();
   const allPlayers = useDbValue('users');
   const currentQuestion = useDbValue('currentQuestion');
+  const quizOngoing = useDbValue('quizOngoing');
 
   const nextPlayer = getNextPlayer(allPlayers);
 
@@ -118,6 +120,10 @@ const Host = () => {
       .set(currentQuestion + 1)
       .then(resetPlayers());
   };
+
+  if (!quizOngoing) {
+    return <StartQuiz />;
+  }
 
   if (nextPlayer) {
     return (

@@ -58,6 +58,7 @@ const Player = () => {
 
   const userKey = localStorage.getItem('userKey');
   const player = useDbValue(userKey && `users/${userKey}`);
+  const quizOngoing = useDbValue('quizOngoing');
 
   const lockUsername = event => {
     setUsername(event.target.value);
@@ -105,6 +106,12 @@ const Player = () => {
       });
     }
   };
+
+  if (!quizOngoing) {
+    return (
+      <Wrapper>Waiting for quizmaster to start today&apos;s quiz..</Wrapper>
+    );
+  }
 
   return (
     <Wrapper>
