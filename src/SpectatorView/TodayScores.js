@@ -30,23 +30,6 @@ const chartColors = [
 ];
 
 const TodayScores = ({ lePlayers }) => {
-  const [players, updatePlayers] = useState([]);
-  const fetchPlayers = useCallback(() => {
-    axios({
-      method: 'get',
-      url: `${constants.apiUrl}/players`,
-    }).then(response => {
-      updatePlayers(response.data);
-    });
-  });
-  useEffect(fetchPlayers, []);
-
-  usePusher(fetchPlayers);
-
-  const playersWithPositiveScore = _.filter(
-    players,
-    player => player.score > 0
-  );
   const chartData = _.orderBy(
     _.map(lePlayers, player => {
       return {
