@@ -1,6 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { MdCheck, MdClear, MdSkipNext, MdCached } from 'react-icons/md';
+import {
+  MdCheck,
+  MdClear,
+  MdSkipNext,
+  MdCached,
+  MdUpdate,
+} from 'react-icons/md';
 import _ from 'lodash';
 import useDbValue from './useDbValue';
 import useDb from './useDb';
@@ -79,6 +85,10 @@ const NextQuestionButton = styled(Button)`
   }
 `;
 
+const ResetButton = styled(NextQuestionButton)`
+  background-color: ${props => props.theme.alizarin};
+`;
+
 const Host = () => {
   const db = useDb();
   const allPlayers = useDbValue('users');
@@ -96,6 +106,15 @@ const Host = () => {
       const players = snapshot.val();
       db.ref('users').set(generateResettedPlayers(players));
     });
+  };
+
+  const resetFull = () => {
+    const wantsToDelete = confirm(
+      'Zeker dat je alle spelers en scores wilt verwijderen?'
+    );
+    if (wantsToDelete) {
+      db.ref().update({ users: null, currentQuestion: 1 });
+    }
   };
 
   const markAsCorrect = () => {
@@ -121,9 +140,9 @@ const Host = () => {
       .then(resetPlayers());
   };
 
-  if (!quizOngoing) {
-    return <StartQuiz />;
-  }
+  // if (!quizOngoing) {
+  //   return <StartQuiz />;
+  // }
 
   if (nextPlayer) {
     return (
@@ -157,8 +176,11 @@ const Host = () => {
           <MdSkipNext />
         </NextQuestionButton>
         <NextQuestionButton onClick={resetPlayers}>
-          <MdCached />
+          <MdUpdate />
         </NextQuestionButton>
+        <ResetButton onClick={resetFull}>
+          <MdCached />
+        </ResetButton>
       </DeclineButtons>
     </Wrapper>
   );
