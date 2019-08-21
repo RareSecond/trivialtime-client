@@ -16,6 +16,7 @@ import {
   getEligiblePlayers,
 } from './playerFunctions';
 import StartQuiz from './Quizmaster/StartQuiz';
+import usePlayers from './usePlayers';
 
 const Wrapper = styled.div`
   display: flex;
@@ -91,11 +92,9 @@ const ResetButton = styled(NextQuestionButton)`
 
 const Host = () => {
   const db = useDb();
-  const allPlayers = useDbValue('users');
   const currentQuestion = useDbValue('currentQuestion');
   const quizOngoing = useDbValue('quizOngoing');
-
-  const nextPlayer = getNextPlayer(allPlayers);
+  const { allPlayers, currentPlayer } = usePlayers();
 
   const resetPlayers = () => {
     // We have to first get the players here again,
@@ -120,15 +119,15 @@ const Host = () => {
   const markAsCorrect = () => {
     db.ref()
       .update({
-        [`users/${nextPlayer.key}/buzzedAt`]: null,
-        [`users/${nextPlayer.key}/score`]: (nextPlayer.score || 0) + 1,
+        [`users/${currentPlayer.key}/buzzedAt`]: null,
+        [`users/${currentPlayer.key}/score`]: (currentPlayer.score || 0) + 1,
         currentQuestion: currentQuestion + 1,
       })
       .then(resetPlayers());
   };
 
   const markAsIncorrect = () => {
-    db.ref(`users/${nextPlayer.key}`).update({
+    db.ref(`users/${currentPlayer.key}`).update({
       buzzedAt: null,
       incorrect: true,
     });
@@ -144,11 +143,11 @@ const Host = () => {
   //   return <StartQuiz />;
   // }
 
-  if (nextPlayer) {
+  if (currentPlayer) {
     return (
       <Wrapper hasPlayer>
         <PlayerName>
-          <NameText>{nextPlayer.username}</NameText>
+          <NameText>{currentPlayer.username}</NameText>
         </PlayerName>
         <AnswerButtons>
           <IncorrectButton onClick={markAsIncorrect}>

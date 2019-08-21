@@ -1,10 +1,7 @@
-import React, { useEffect, useCallback, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
 import _ from 'lodash';
 import { ResponsiveBar } from '@nivo/bar';
 import styled from 'styled-components';
-import constants from '../constants';
-import usePusher from '../usePusher';
 import BlockTitle from '../BlockTitle';
 import BlockContent from '../BlockContent';
 import BlockWrapper from '../BlockWrapper';
