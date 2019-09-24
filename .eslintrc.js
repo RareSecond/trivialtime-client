@@ -3,6 +3,7 @@ module.exports = {
   parser: 'babel-eslint',
   env: {
     browser: true,
+    'cypress/globals': true,
   },
   rules: {
     'arrow-parens': ['error', 'as-needed'],
@@ -13,4 +14,5 @@ module.exports = {
     'no-alert': 0,
     'no-nested-ternary': 0,
   },
+  plugins: ['cypress'],
 };

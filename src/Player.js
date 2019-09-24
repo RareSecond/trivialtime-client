@@ -107,11 +107,11 @@ const Player = () => {
     }
   };
 
-  if (!quizOngoing) {
-    return (
-      <Wrapper>Waiting for quizmaster to start today&apos;s quiz..</Wrapper>
-    );
-  }
+  // if (!quizOngoing) {
+  //   return (
+  //     <Wrapper>Waiting for quizmaster to start today&apos;s quiz..</Wrapper>
+  //   );
+  // }
 
   return (
     <Wrapper>
