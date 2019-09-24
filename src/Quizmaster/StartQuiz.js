@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { MdPowerSettingsNew } from 'react-icons/md';
-import useDb from '../useDb';
+import useDb from '../Data/useDb';
 
 const Wrapper = styled.div`
   display: flex;

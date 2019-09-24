@@ -1,5 +1,5 @@
 import useDbValue from './useDbValue';
-import { getNextPlayer } from './playerFunctions';
+import { getNextPlayer } from '../playerFunctions';
 
 const usePlayers = () => {
   const allPlayers = useDbValue('users');

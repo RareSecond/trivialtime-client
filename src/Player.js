@@ -1,13 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import _ from 'lodash';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import constants from './constants';
-import PlayerOverview from './PlayerOverview';
-import Buzzer from './Buzzer';
-import usePlayers from './usePlayers';
-import useDb from './useDb';
-import useDbValue from './useDbValue';
+import Buzzer from './Player/Buzzer';
+import useDb from './Data/useDb';
+import useDbValue from './Data/useDbValue';
 
 const Wrapper = styled.div`
   display: flex;

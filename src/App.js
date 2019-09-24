@@ -3,7 +3,7 @@ import { hot } from 'react-hot-loader/root';
 import { initializeApp, database } from 'firebase';
 import RoleSelection from './RoleSelection';
 import Skeleton from './Skeleton';
-import DatabaseContext from './DatabaseContext';
+import DatabaseContext from './Data/DatabaseContext';
 
 const App = () => {
   const [db, setDb] = useState();

@@ -2,9 +2,9 @@ import React from 'react';
 import _ from 'lodash';
 import { ResponsiveBar } from '@nivo/bar';
 import styled from 'styled-components';
-import BlockTitle from '../BlockTitle';
-import BlockContent from '../BlockContent';
-import BlockWrapper from '../BlockWrapper';
+import BlockTitle from '../Components/BlockTitle';
+import BlockContent from '../Components/BlockContent';
+import BlockWrapper from '../Components/BlockWrapper';
 
 const Wrapper = styled(BlockWrapper)`
   grid-column: 4 / span 3;

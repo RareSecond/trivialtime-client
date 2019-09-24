@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import BlockTitle from '../BlockTitle';
-import BlockContent from '../BlockContent';
-import BlockWrapper from '../BlockWrapper';
-import ContentText from '../ContentText';
+import BlockTitle from '../Components/BlockTitle';
+import BlockContent from '../Components/BlockContent';
+import BlockWrapper from '../Components/BlockWrapper';
+import ContentText from '../Components/ContentText';
 
 const Wrapper = styled(BlockWrapper)`
   grid-column: 4 / span 1;

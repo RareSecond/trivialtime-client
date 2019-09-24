@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { database } from 'firebase';
-import useDb from './useDb';
+import useDb from '../Data/useDb';
 
 const Wrapper = styled.div`
   flex: 1 0 auto;

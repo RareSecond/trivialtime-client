@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import BlockTitle from '../BlockTitle';
-import BlockContent from '../BlockContent';
-import BlockWrapper from '../BlockWrapper';
-import ContentText from '../ContentText';
-import useDbValue from '../useDbValue';
+import BlockTitle from '../Components/BlockTitle';
+import BlockContent from '../Components/BlockContent';
+import BlockWrapper from '../Components/BlockWrapper';
+import ContentText from '../Components/ContentText';
+import useDbValue from '../Data/useDbValue';
 
 const Wrapper = styled(BlockWrapper)`
   grid-column: 6 / span 1;

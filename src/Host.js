@@ -8,15 +8,10 @@ import {
   MdUpdate,
 } from 'react-icons/md';
 import _ from 'lodash';
-import useDbValue from './useDbValue';
-import useDb from './useDb';
-import {
-  getNextPlayer,
-  generateResettedPlayers,
-  getEligiblePlayers,
-} from './playerFunctions';
-import StartQuiz from './Quizmaster/StartQuiz';
-import usePlayers from './usePlayers';
+import useDbValue from './Data/useDbValue';
+import useDb from './Data/useDb';
+import { generateResettedPlayers, getEligiblePlayers } from './playerFunctions';
+import usePlayers from './Data/usePlayers';
 
 const Wrapper = styled.div`
   display: flex;
