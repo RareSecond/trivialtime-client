@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import NoSleep from 'nosleep.js';
 import { MdAirplay, MdPlayCircleFilled, MdMic } from 'react-icons/md';
 import Player from './Player';
-import Host from './Host';
+import Host from './Quizmaster/Host';
 import Spectator from './Spectator';
 
 var noSleep = new NoSleep();

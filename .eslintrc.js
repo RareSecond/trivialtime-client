@@ -13,6 +13,8 @@ module.exports = {
     'object-curly-newline': ['error', { consistent: true }],
     'no-alert': 0,
     'no-nested-ternary': 0,
+    'react/prop-types': 0,
+    'react/jsx-one-expression-per-line': 0,
   },
   plugins: ['cypress'],
 };
