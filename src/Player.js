@@ -121,14 +121,20 @@ const Player = () => {
         </React.Fragment>
       ) : (
         <React.Fragment>
-          <Buzzer
-            username={username}
-            buzzed={player && player.buzzedAt}
-            incorrect={player && player.incorrect}
-          />
-          <Button onClick={pass} disabled={player && player.incorrect}>
-            Pas
-          </Button>
+          {player ? (
+            <>
+              <Buzzer
+                username={username}
+                buzzed={player && player.buzzedAt}
+                incorrect={player && player.incorrect}
+              />
+              <Button onClick={pass} disabled={player && player.incorrect}>
+                Pas
+              </Button>
+            </>
+          ) : (
+            'Player not found. Please refresh.'
+          )}
         </React.Fragment>
       )}
     </Wrapper>
