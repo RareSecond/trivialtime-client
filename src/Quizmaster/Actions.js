@@ -33,7 +33,7 @@ const ResetButton = styled(NextQuestionButton)`
   background-color: ${props => props.theme.alizarin};
 `;
 
-const Actions = () => {
+const Actions = ({ noOneLeft }) => {
   const db = useDb();
   const currentQuestion = useDbValue('currentQuestion');
 
@@ -69,12 +69,16 @@ const Actions = () => {
       <NextQuestionButton onClick={nextQuestion}>
         <MdSkipNext />
       </NextQuestionButton>
-      <NextQuestionButton onClick={resetPlayers}>
-        <MdUpdate />
-      </NextQuestionButton>
-      <ResetButton onClick={resetFull}>
-        <MdCached />
-      </ResetButton>
+      {!noOneLeft && (
+        <>
+          <NextQuestionButton onClick={resetPlayers}>
+            <MdUpdate />
+          </NextQuestionButton>
+          <ResetButton onClick={resetFull}>
+            <MdCached />
+          </ResetButton>
+        </>
+      )}
     </Wrapper>
   );
 };

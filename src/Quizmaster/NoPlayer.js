@@ -1,13 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 import _ from 'lodash';
+import { MdPerson, MdQuestionAnswer } from 'react-icons/md';
 import { getEligiblePlayers } from '../playerFunctions';
 import Actions from './Actions';
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: ${props => props.theme.clouds};
+  background-color: ${props =>
+    props.noOneLeft ? props.theme.alizarin : props.theme.clouds};
   width: 100%;
   padding: 20px;
 `;
@@ -21,22 +23,57 @@ const PlayerName = styled.div`
 `;
 
 const Info = styled(PlayerName)`
-  color: ${props => props.theme.midnightBlue};
+  color: ${props =>
+    props.noOneLeft ? props.theme.clouds : props.theme.midnightBlue};
   text-transform: uppercase;
   text-align: center;
+  position: relative;
+`;
+
+const TotalPlayers = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  font-size: 1.6em;
+`;
+
+const CurrentQuestion = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  font-size: 1.6em;
 `;
 
 const NoPlayer = ({ allPlayers, currentQuestion }) => {
+  const amountOfPlayersLeft = getEligiblePlayers(allPlayers).length;
+  const noOneLeft = amountOfPlayersLeft === 0;
+
   return (
-    <Wrapper>
-      <Info>
-        No player for question {currentQuestion}
-        <br />
-        {_.size(allPlayers)} total players
-        <br />
-        {getEligiblePlayers(allPlayers).length} players can still answer
+    <Wrapper noOneLeft={noOneLeft}>
+      <Info noOneLeft={noOneLeft}>
+        <TotalPlayers>
+          <MdPerson />
+          {_.size(allPlayers)}
+        </TotalPlayers>
+        <CurrentQuestion>
+          {currentQuestion}
+          /6
+          <MdQuestionAnswer />
+        </CurrentQuestion>
+        {!noOneLeft && (
+          <>
+            Awaiting player..
+            <br />
+            <br />
+          </>
+        )}
+        {amountOfPlayersLeft} players can still answer
       </Info>
-      <Actions />
+      <Actions noOneLeft={noOneLeft} />
     </Wrapper>
   );
 };
