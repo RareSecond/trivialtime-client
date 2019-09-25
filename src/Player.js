@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import _ from 'lodash';
 import Buzzer from './Player/Buzzer';
 import useDb from './Data/useDb';
 import useDbValue from './Data/useDbValue';
@@ -54,6 +55,7 @@ const Player = () => {
   const userKey = localStorage.getItem('userKey');
   const player = useDbValue(userKey && `users/${userKey}`);
   const quizOngoing = useDbValue('quizOngoing');
+  const quizDay = useDbValue('quizDay');
 
   const lockUsername = event => {
     setUsername(event.target.value);
@@ -74,6 +76,7 @@ const Player = () => {
               .push({
                 username,
                 active: true,
+                scores: _.times(quizDay, _.constant(0)),
               })
               .then(res => {
                 localStorage.setItem('userKey', res.key);

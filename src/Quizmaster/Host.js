@@ -6,6 +6,7 @@ import useDb from '../Data/useDb';
 import { generateResettedPlayers } from '../playerFunctions';
 import usePlayers from '../Data/usePlayers';
 import NoPlayer from './NoPlayer';
+import EndQuizDay from './EndQuizDay';
 
 const Wrapper = styled.div`
   display: flex;
@@ -84,6 +85,10 @@ const Host = () => {
       incorrect: true,
     });
   };
+
+  if (currentQuestion > 6) {
+    return <EndQuizDay />;
+  }
 
   // if (!quizOngoing) {
   //   return <StartQuiz />;

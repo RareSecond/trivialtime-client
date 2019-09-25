@@ -52,3 +52,17 @@ export const generateResettedPlayers = players => {
 
   return newPlayers;
 };
+
+export const generateNewQuizDayPlayers = players => {
+  const newPlayers = {};
+
+  _.forEach(players, (player, key) => {
+    newPlayers[key] = {
+      ...player,
+      active: false,
+      scores: [...player.scores, player.scores[player.scores.length - 1]],
+    };
+  });
+
+  return newPlayers;
+};
