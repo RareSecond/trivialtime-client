@@ -29,8 +29,10 @@ const chartColors = [
 const TodayScores = ({ lePlayers }) => {
   const chartData = _.orderBy(
     _.map(lePlayers, player => {
+      const lastScoreIndex = player.scores.length - 1;
       return {
-        score: player.score,
+        score:
+          player.scores[lastScoreIndex] - player.scores[lastScoreIndex - 1],
         name: player.username,
       };
     }),

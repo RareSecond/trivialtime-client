@@ -10,7 +10,7 @@ import TotalScores from './SpectatorView/TotalScores';
 import {
   getEligiblePlayers,
   getBuzzedPlayers,
-  getPlayersByScore,
+  getPlayersByTodayScore,
 } from './playerFunctions';
 import useDbValue from './Data/useDbValue';
 
@@ -31,7 +31,7 @@ const Spectator = () => {
   const players = useDbValue('users') || [];
   const eligibilePlayers = getEligiblePlayers(players);
   const [currentPlayer, ...nextPlayers] = getBuzzedPlayers(players);
-  const playersByScore = getPlayersByScore(players);
+  const playersByScore = getPlayersByTodayScore(players);
 
   return (
     <Wrapper>

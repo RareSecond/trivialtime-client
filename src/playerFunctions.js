@@ -29,10 +29,13 @@ export const getBuzzedPlayers = players => {
   );
 };
 
-export const getPlayersByScore = players => {
+export const getPlayersByTodayScore = players => {
   return _.orderBy(
     _.filter(toArray(players), player => {
-      return player.score > 0;
+      const lastScoreIndex = player.scores.length - 1;
+      return (
+        player.scores[lastScoreIndex] - player.scores[lastScoreIndex - 1] > 0
+      );
     }),
     ['score'],
     ['desc']
