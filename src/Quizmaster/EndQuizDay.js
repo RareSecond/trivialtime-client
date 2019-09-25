@@ -36,6 +36,8 @@ const EndQuizDay = () => {
   const endQuizDay = () => {
     db.ref('users').set(generateNewQuizDayPlayers(allPlayers));
     db.ref('quizDay').set(quizDay + 1);
+    db.ref('currentQuestion').set(1);
+    db.ref('quizOngoing').set(false);
   };
 
   return (
