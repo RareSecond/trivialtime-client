@@ -41,6 +41,7 @@ const TotalScores = ({ players }) => {
             enablePointLabel
             axisLeft={null}
             axisBottom={null}
+            colors={{ scheme: 'set3' }}
             legends={[
               {
                 anchor: 'bottom-right',
