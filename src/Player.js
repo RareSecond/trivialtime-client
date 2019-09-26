@@ -136,7 +136,7 @@ const Player = () => {
         </React.Fragment>
       ) : (
         <React.Fragment>
-          {player ? (
+          {player && player.active ? (
             <>
               <Buzzer
                 username={username}
