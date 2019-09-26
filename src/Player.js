@@ -50,9 +50,9 @@ const Player = () => {
     localStorage.getItem('username') || ''
   );
   const [lockedIn, setLockedIn] = useState(false);
+  const [userKey, setUserKey] = useState('');
   const db = useDb();
 
-  const userKey = localStorage.getItem('userKey');
   const player = useDbValue(userKey && `users/${userKey}`);
   const quizOngoing = useDbValue('quizOngoing');
   const quizDay = useDbValue('quizDay');
@@ -79,12 +79,14 @@ const Player = () => {
                 scores: _.times(quizDay, _.constant(0)),
               })
               .then(res => {
+                setUserKey(res.key);
                 localStorage.setItem('userKey', res.key);
                 setLockedIn(true);
               });
           } else {
             const currentUserKey = Object.keys(user)[0];
-            localStorage.setItem('userKey', currentUserKey);
+
+            setUserKey(currentUserKey);
             db.ref(`users/${currentUserKey}`)
               .update({
                 active: true,
@@ -128,6 +130,7 @@ const Player = () => {
             <>
               <Buzzer
                 username={username}
+                userKey={userKey}
                 buzzed={player && player.buzzedAt}
                 incorrect={player && player.incorrect}
               />

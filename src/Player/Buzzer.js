@@ -15,12 +15,11 @@ const Buzzer = styled.img`
   filter: grayscale(${props => (props.isPressed ? 0 : '0.7')});
 `;
 
-const Player = ({ buzzed, incorrect }) => {
+const Player = ({ buzzed, incorrect, userKey }) => {
   const db = useDb();
 
   const buzz = () => {
     if (!incorrect && !buzzed) {
-      const userKey = localStorage.getItem('userKey');
       db.ref(`users/${userKey}`).update({
         buzzedAt: database.ServerValue.TIMESTAMP,
       });
