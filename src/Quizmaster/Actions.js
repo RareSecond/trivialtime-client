@@ -60,7 +60,12 @@ const Actions = ({ noOneLeft }) => {
       'Zeker dat je alle spelers en scores wilt verwijderen?'
     );
     if (wantsToDelete) {
-      db.ref().update({ users: null, currentQuestion: 1 });
+      db.ref().update({
+        users: null,
+        currentQuestion: 1,
+        quizDay: 1,
+        quizOngoing: false,
+      });
     }
   };
 
