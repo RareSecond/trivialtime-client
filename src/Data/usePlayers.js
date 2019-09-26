@@ -1,5 +1,5 @@
 import useDbValue from './useDbValue';
-import { getNextPlayer } from '../playerFunctions';
+import { getNextPlayer, getActivePlayers } from '../playerFunctions';
 
 const usePlayers = () => {
   const allPlayers = useDbValue('users');
@@ -9,6 +9,7 @@ const usePlayers = () => {
     buzzedPlayers: [],
     currentPlayer: getNextPlayer(allPlayers),
     eligibilePlayers: [],
+    activePlayers: getActivePlayers(allPlayers),
   };
 };
 

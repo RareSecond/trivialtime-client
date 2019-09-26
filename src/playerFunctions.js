@@ -13,8 +13,12 @@ export const getNextPlayer = players => {
   return _.minBy(toArray(players), 'buzzedAt');
 };
 
+export const getActivePlayers = players => {
+  return _.filter(players, 'active');
+};
+
 export const getEligiblePlayers = players => {
-  return _.filter(toArray(players), player => {
+  return _.filter(toArray(getActivePlayers(players)), player => {
     return !player.incorrect && !player.buzzedAt;
   });
 };
