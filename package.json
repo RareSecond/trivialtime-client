@@ -14,6 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "@nivo/bar": "^0.52.1",
+    "@nivo/line": "^0.59.3",
     "axios": "^0.18.1",
     "firebase": "^5.8.5",
     "immutability-helper": "^2.8.1",

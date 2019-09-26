@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import _ from 'lodash';
 import { MdPerson, MdQuestionAnswer } from 'react-icons/md';
-import { getEligiblePlayers } from '../playerFunctions';
+import { getEligiblePlayers, getActivePlayers } from '../playerFunctions';
 import Actions from './Actions';
 
 const Wrapper = styled.div`
@@ -50,6 +50,7 @@ const CurrentQuestion = styled.div`
 
 const NoPlayer = ({ allPlayers, currentQuestion }) => {
   const amountOfPlayersLeft = getEligiblePlayers(allPlayers).length;
+  const totalPlayers = getActivePlayers(allPlayers).length;
   const noOneLeft = amountOfPlayersLeft === 0;
 
   return (
@@ -57,7 +58,7 @@ const NoPlayer = ({ allPlayers, currentQuestion }) => {
       <Info noOneLeft={noOneLeft}>
         <TotalPlayers>
           <MdPerson />
-          {_.size(allPlayers)}
+          {totalPlayers}
         </TotalPlayers>
         <CurrentQuestion>
           {currentQuestion}

@@ -6,6 +6,8 @@ import useDb from '../Data/useDb';
 import { generateResettedPlayers } from '../playerFunctions';
 import usePlayers from '../Data/usePlayers';
 import NoPlayer from './NoPlayer';
+import EndQuizDay from './EndQuizDay';
+import StartQuiz from './StartQuiz';
 
 const Wrapper = styled.div`
   display: flex;
@@ -73,6 +75,9 @@ const Host = () => {
       .update({
         [`users/${currentPlayer.key}/buzzedAt`]: null,
         [`users/${currentPlayer.key}/score`]: (currentPlayer.score || 0) + 1,
+        [`users/${currentPlayer.key}/scores/${currentPlayer.scores.length -
+          1}`]:
+          (currentPlayer.scores[currentPlayer.scores.length - 1] || 0) + 1,
         currentQuestion: currentQuestion + 1,
       })
       .then(resetPlayers());
@@ -85,9 +90,13 @@ const Host = () => {
     });
   };
 
-  // if (!quizOngoing) {
-  //   return <StartQuiz />;
-  // }
+  if (currentQuestion > 6) {
+    return <EndQuizDay />;
+  }
+
+  if (!quizOngoing) {
+    return <StartQuiz />;
+  }
 
   if (currentPlayer) {
     return (

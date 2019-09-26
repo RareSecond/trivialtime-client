@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import _ from 'lodash';
 import Buzzer from './Player/Buzzer';
 import useDb from './Data/useDb';
 import useDbValue from './Data/useDbValue';
@@ -44,16 +45,24 @@ const Button = styled.div`
   opacity: ${props => (props.disabled ? 0.2 : 1)};
 `;
 
+const EilandGif = styled.img`
+  width: 100%;
+  height: auto;
+  display: block;
+  margin-top: 10px;
+`;
+
 const Player = () => {
   const [username, setUsername] = useState(
     localStorage.getItem('username') || ''
   );
   const [lockedIn, setLockedIn] = useState(false);
+  const [userKey, setUserKey] = useState('');
   const db = useDb();
 
-  const userKey = localStorage.getItem('userKey');
   const player = useDbValue(userKey && `users/${userKey}`);
   const quizOngoing = useDbValue('quizOngoing');
+  const quizDay = useDbValue('quizDay');
 
   const lockUsername = event => {
     setUsername(event.target.value);
@@ -74,14 +83,17 @@ const Player = () => {
               .push({
                 username,
                 active: true,
+                scores: _.times(quizDay, _.constant(0)),
               })
               .then(res => {
+                setUserKey(res.key);
                 localStorage.setItem('userKey', res.key);
                 setLockedIn(true);
               });
           } else {
             const currentUserKey = Object.keys(user)[0];
-            localStorage.setItem('userKey', currentUserKey);
+
+            setUserKey(currentUserKey);
             db.ref(`users/${currentUserKey}`)
               .update({
                 active: true,
@@ -102,11 +114,14 @@ const Player = () => {
     }
   };
 
-  // if (!quizOngoing) {
-  //   return (
-  //     <Wrapper>Waiting for quizmaster to start today&apos;s quiz..</Wrapper>
-  //   );
-  // }
+  if (!quizOngoing) {
+    return (
+      <Wrapper>
+        Waiting for quizmaster to start today&apos;s quiz..
+        <EilandGif src="https://media1.giphy.com/media/3o6ZtfzV59Q8faMmmk/giphy.gif?cid=790b7611c44813f697fda481b3394ae130c5f036e6910a15&rid=giphy.gif" />
+      </Wrapper>
+    );
+  }
 
   return (
     <Wrapper>
@@ -121,10 +136,11 @@ const Player = () => {
         </React.Fragment>
       ) : (
         <React.Fragment>
-          {player ? (
+          {player && player.active ? (
             <>
               <Buzzer
                 username={username}
+                userKey={userKey}
                 buzzed={player && player.buzzedAt}
                 incorrect={player && player.incorrect}
               />
