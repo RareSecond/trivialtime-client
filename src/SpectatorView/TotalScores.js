@@ -13,7 +13,7 @@ const Wrapper = styled(BlockWrapper)`
 
 const ChartWrapper = styled.div`
   width: 100%;
-  height: 25vh;
+  height: 27vh;
 `;
 
 const TotalScores = ({ players }) => {
@@ -33,7 +33,7 @@ const TotalScores = ({ players }) => {
         <ChartWrapper>
           <ResponsiveLine
             data={scoresData}
-            margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+            margin={{ top: 30, right: 70, bottom: 20, left: 20 }}
             pointSize={10}
             pointBorderWidth={10}
             enableGridX={false}
