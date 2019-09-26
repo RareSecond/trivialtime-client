@@ -41,7 +41,7 @@ const Spectator = () => {
       <CurrentQuestion />
       <NextPlayers players={nextPlayers} />
       <TodayScores lePlayers={playersByScore} />
-      <TotalScores />
+      <TotalScores players={players} />
     </Wrapper>
   );
 };
