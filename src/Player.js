@@ -45,6 +45,13 @@ const Button = styled.div`
   opacity: ${props => (props.disabled ? 0.2 : 1)};
 `;
 
+const EilandGif = styled.img`
+  width: 100%;
+  height: auto;
+  display: block;
+  margin-top: 10px;
+`;
+
 const Player = () => {
   const [username, setUsername] = useState(
     localStorage.getItem('username') || ''
@@ -107,11 +114,14 @@ const Player = () => {
     }
   };
 
-  // if (!quizOngoing) {
-  //   return (
-  //     <Wrapper>Waiting for quizmaster to start today&apos;s quiz..</Wrapper>
-  //   );
-  // }
+  if (!quizOngoing) {
+    return (
+      <Wrapper>
+        Waiting for quizmaster to start today&apos;s quiz..
+        <EilandGif src="https://media1.giphy.com/media/3o6ZtfzV59Q8faMmmk/giphy.gif?cid=790b7611c44813f697fda481b3394ae130c5f036e6910a15&rid=giphy.gif" />
+      </Wrapper>
+    );
+  }
 
   return (
     <Wrapper>
