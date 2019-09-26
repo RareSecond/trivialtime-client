@@ -33,7 +33,7 @@ const StartQuiz = () => {
   const db = useDb();
 
   const startQuiz = () => {
-    db.ref('quizOngoing').set(1);
+    db.ref('quizOngoing').set(true);
   };
 
   return (

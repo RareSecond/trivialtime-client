@@ -7,6 +7,7 @@ import { generateResettedPlayers } from '../playerFunctions';
 import usePlayers from '../Data/usePlayers';
 import NoPlayer from './NoPlayer';
 import EndQuizDay from './EndQuizDay';
+import StartQuiz from './StartQuiz';
 
 const Wrapper = styled.div`
   display: flex;
@@ -93,9 +94,9 @@ const Host = () => {
     return <EndQuizDay />;
   }
 
-  // if (!quizOngoing) {
-  //   return <StartQuiz />;
-  // }
+  if (!quizOngoing) {
+    return <StartQuiz />;
+  }
 
   if (currentPlayer) {
     return (
