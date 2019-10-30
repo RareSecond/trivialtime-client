@@ -5,15 +5,38 @@ import { ResponsiveLine } from '@nivo/line';
 import BlockTitle from '../Components/BlockTitle';
 import BlockContent from '../Components/BlockContent';
 import BlockWrapper from '../Components/BlockWrapper';
+import { getPlayersByTotalScore } from '../playerFunctions';
 
 const Wrapper = styled(BlockWrapper)`
   grid-column: 1 / span 6;
   grid-row: 4 / span 2;
 `;
 
+const RowBlockContent = styled(BlockContent)`
+  flex-direction: row;
+`;
+
 const ChartWrapper = styled.div`
-  width: 100%;
+  width: 70%;
   height: 27vh;
+`;
+
+const TooltipWrapper = styled.div`
+  background-color: white;
+  padding: 10px;
+  box-shadow: 7px 7px 0px #bdc3c7;
+  border-radius: 10px;
+`;
+
+const Scores = styled.div`
+  width: 30%;
+  align-self: flex-start;
+  padding: 20px;
+`;
+
+const PlayerScore = styled.div`
+  color: ${props => props.theme.midnightBlue};
+  font-size: 20px;
 `;
 
 const TotalScores = ({ players }) => {
@@ -29,11 +52,11 @@ const TotalScores = ({ players }) => {
   return (
     <Wrapper>
       <BlockTitle>Total Scores</BlockTitle>
-      <BlockContent>
+      <RowBlockContent>
         <ChartWrapper>
           <ResponsiveLine
             data={scoresData}
-            margin={{ top: 30, right: 70, bottom: 20, left: 20 }}
+            margin={{ top: 30, right: 20, bottom: 20, left: 20 }}
             pointSize={10}
             pointBorderWidth={10}
             enableGridX={false}
@@ -42,26 +65,31 @@ const TotalScores = ({ players }) => {
             axisLeft={null}
             axisBottom={null}
             colors={{ scheme: 'set3' }}
-            legends={[
-              {
-                anchor: 'bottom-right',
-                direction: 'column',
-                justify: false,
-                translateX: 100,
-                translateY: 0,
-                itemsSpacing: 0,
-                itemDirection: 'left-to-right',
-                itemWidth: 80,
-                itemHeight: 20,
-                itemOpacity: 0.75,
-                symbolSize: 12,
-                symbolShape: 'circle',
-                symbolBorderColor: 'rgba(0, 0, 0, .5)',
-              },
-            ]}
+            tooltip={data => {
+              const yCoord = data.point.data.y;
+              const xCoord = data.point.data.x;
+              const playersWithCurrentScore = _.filter(players, player => {
+                return player.scores[xCoord - 1] === yCoord;
+              });
+              return (
+                <TooltipWrapper>
+                  {playersWithCurrentScore.map(player => (
+                    <div key={player.username}>{player.username}</div>
+                  ))}
+                </TooltipWrapper>
+              );
+            }}
+            useMesh
           />
         </ChartWrapper>
-      </BlockContent>
+        <Scores>
+          {_.map(getPlayersByTotalScore(players), player => (
+            <PlayerScore key={player.username}>
+              {player.score} - {player.username}
+            </PlayerScore>
+          ))}
+        </Scores>
+      </RowBlockContent>
     </Wrapper>
   );
 };
