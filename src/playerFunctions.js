@@ -33,6 +33,11 @@ export const getBuzzedPlayers = players => {
   );
 };
 
+export const getPlayersByTotalScore = players => {
+  // Includes a filter because we want to hide players with 0
+  return _.orderBy(_.filter(players, 'score'), ['score'], ['desc']);
+};
+
 export const getPlayersByTodayScore = players => {
   return _.orderBy(
     _.filter(toArray(players), player => {
