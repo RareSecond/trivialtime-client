@@ -6,7 +6,7 @@ module.exports = (env, options) => {
   return {
     entry: './src/index.js',
     output: {
-      filename: 'main.js',
+      filename: 'main.js?[hash]',
       path: path.resolve(__dirname, 'docs'),
     },
     module: {
