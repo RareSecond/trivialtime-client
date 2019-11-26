@@ -8,6 +8,7 @@ import usePlayers from '../Data/usePlayers';
 import NoPlayer from './NoPlayer';
 import EndQuizDay from './EndQuizDay';
 import StartQuiz from './StartQuiz';
+import FreeForAll from './FreeForAll';
 
 const Wrapper = styled.div`
   display: flex;
@@ -57,6 +58,7 @@ const Host = () => {
   const db = useDb();
   const currentQuestion = useDbValue('currentQuestion');
   const quizOngoing = useDbValue('quizOngoing');
+  const quizMode = useDbValue('quizMode');
   const { allPlayers, currentPlayer } = usePlayers();
 
   const resetPlayers = () => {
@@ -96,6 +98,10 @@ const Host = () => {
 
   if (!quizOngoing) {
     return <StartQuiz />;
+  }
+
+  if (quizMode === 'freeForAll') {
+    return <FreeForAll />;
   }
 
   if (currentPlayer) {
