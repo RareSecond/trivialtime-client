@@ -4,6 +4,7 @@ import _ from 'lodash';
 import Buzzer from './Player/Buzzer';
 import useDb from './Data/useDb';
 import useDbValue from './Data/useDbValue';
+import FreeForAll from './Player/FreeForAll';
 
 const Wrapper = styled.div`
   display: flex;
@@ -63,6 +64,7 @@ const Player = () => {
   const player = useDbValue(userKey && `users/${userKey}`);
   const quizOngoing = useDbValue('quizOngoing');
   const quizDay = useDbValue('quizDay');
+  const quizMode = useDbValue('quizMode');
 
   const lockUsername = event => {
     setUsername(event.target.value);
@@ -138,15 +140,21 @@ const Player = () => {
         <React.Fragment>
           {player && player.active ? (
             <>
-              <Buzzer
-                username={username}
-                userKey={userKey}
-                buzzed={player && player.buzzedAt}
-                incorrect={player && player.incorrect}
-              />
-              <Button onClick={pass} disabled={player && player.incorrect}>
-                Pas
-              </Button>
+              {quizMode === 'freeForAll' ? (
+                <FreeForAll userKey={userKey} />
+              ) : (
+                <>
+                  <Buzzer
+                    username={username}
+                    userKey={userKey}
+                    buzzed={player && player.buzzedAt}
+                    incorrect={player && player.incorrect}
+                  />
+                  <Button onClick={pass} disabled={player && player.incorrect}>
+                    Pas
+                  </Button>
+                </>
+              )}
             </>
           ) : (
             'Player not found. Please refresh.'
