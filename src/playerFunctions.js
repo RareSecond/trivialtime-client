@@ -17,6 +17,10 @@ export const getActivePlayers = players => {
   return _.filter(players, 'active');
 };
 
+export const getAnsweredPlayers = players => {
+  return _.filter(toArray(players), player => player.active && player.answer);
+};
+
 export const getEligiblePlayers = players => {
   return _.filter(toArray(getActivePlayers(players)), player => {
     return !player.incorrect && !player.buzzedAt;
@@ -59,6 +63,20 @@ export const generateResettedPlayers = players => {
       ...player,
       incorrect: null,
       buzzedAt: null,
+    };
+  });
+
+  return newPlayers;
+};
+
+export const generateResettedPlayersFFA = players => {
+  const newPlayers = {};
+
+  _.forEach(players, (player, key) => {
+    newPlayers[key] = {
+      ...player,
+      answer: null,
+      answerCorrect: null,
     };
   });
 
