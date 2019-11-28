@@ -7,6 +7,8 @@ const Wrapper = styled.div`
   width: 100vw;
   display: flex;
   font-family: 'Viga';
+  background-image: url('http://4.bp.blogspot.com/-6VN3qOYDjiI/VlCHGFnrH0I/AAAAAAAAFRg/OBJ2r-RwJPA/w768-h1024-c/abstract-blue-purple-texture-lockscreen-android-wallpaper.jpg');
+  background-size: cover;
 `;
 
 const Menu = styled.div`

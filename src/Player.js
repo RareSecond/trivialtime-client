@@ -9,7 +9,6 @@ import FreeForAll from './Player/FreeForAll';
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: ${props => props.theme.clouds};
   width: 100%;
   padding: 20px;
   justify-content: center;
@@ -19,12 +18,13 @@ const UsernameInput = styled.input`
   width: 100%;
   display: block;
   border: none;
-  border: 2px solid ${props => props.theme.turquoise};
+  border-bottom: 2px solid ${props => props.theme.turquoise};
   text-align: center;
   text-transform: uppercase;
   font-size: 15vw;
   font-family: 'Staatliches', cursive;
-  color: ${props => props.theme.midnightBlue};
+  color: ${props => props.theme.clouds};
+  background-color: transparent;
 
   &:focus {
     outline: none;
@@ -35,7 +35,7 @@ const Button = styled.div`
   margin: 20px auto;
   background-color: ${props => props.theme.turquoise};
   width: 100%;
-  color: white;
+  color: ${props => props.theme.clouds};
   padding: 20px;
   box-sizing: border-box;
   text-align: center;
