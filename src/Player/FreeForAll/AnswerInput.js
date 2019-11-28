@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import dayjs from 'dayjs';
 import useDb from '../../Data/useDb';
+import useDbValue from '../../Data/useDbValue';
 
 const UsernameInput = styled.input`
   width: 100%;
@@ -38,12 +40,32 @@ const Button = styled.div`
 const AnswerInput = ({ userKey }) => {
   const [answer, setAnswer] = useState('');
   const db = useDb();
+  const answersStart = useDbValue('answersStart');
 
   const saveAnswer = () => {
     db.ref(`users/${userKey}`).update({
       answer,
     });
   };
+
+  useEffect(
+    () => {
+      if (answersStart) {
+        const msToAnswer = 1000 * 20;
+        const closeAnswersIn = answersStart + msToAnswer - dayjs().valueOf();
+
+        const timeout = setTimeout(() => {
+          db.ref(`users/${userKey}`).update({
+            answer: ' ',
+            answerCorrect: false,
+          });
+        }, closeAnswersIn);
+
+        return () => clearTimeout(timeout);
+      }
+    },
+    [answersStart]
+  );
 
   return (
     <React.Fragment>
