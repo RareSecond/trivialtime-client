@@ -5,51 +5,35 @@ import { MdAirplay, MdPlayCircleFilled, MdMic } from 'react-icons/md';
 import Player from './Player';
 import Host from './Quizmaster/Host';
 import Spectator from './Spectator';
+import Box from './Components/Box';
+import Players from './Components/Icons/Players';
+import Microphone from './Components/Icons/Microphone';
 
 var noSleep = new NoSleep();
-
-const Wrapper = styled.div`
-  min-height: 100vh;
-  padding: 100px 5%;
-  width: 100%;
-`;
 
 const SelectionWrapper = styled.div`
   height: 100%;
   width: 100%;
+  padding: 0 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 `;
 
-const RoleButton = styled.div`
-  margin: 20px auto;
-  background-color: ${props => props.theme.turquoise};
-  color: white;
-  padding: 20px;
-  box-sizing: border-box;
-  text-align: center;
-  text-transform: uppercase;
-  font-size: 30px;
-  width: 600px;
-  max-width: 90%;
-  border-radius: 10px;
-  cursor: pointer;
+const SelectionBox = styled(Box)`
+  margin-bottom: 50px;
+`;
+
+const SingleSelection = styled.div`
   display: flex;
+  justify-content: space-between;
   align-items: center;
-
-  @media only screen and (min-width: 700px) {
-    font-size: 50px;
-  }
+  cursor: pointer;
 `;
 
-const RoleIcon = styled.span`
-  margin-right: 10px;
-  flex: 0 0 auto;
-`;
-
-const RoleText = styled.span`
-  flex-grow: 1;
+const SelectionText = styled.div`
+  color: ${props => props.theme.turquoise};
+  font-size: 8vw;
 `;
 
 class RoleSelection extends React.Component {
@@ -87,36 +71,26 @@ class RoleSelection extends React.Component {
           )
         ) : (
           <SelectionWrapper>
-            <RoleButton
-              onClick={() => {
-                this.setRole('player');
-              }}
-            >
-              <RoleIcon>
-                <MdPlayCircleFilled />
-              </RoleIcon>
-              <RoleText>Player</RoleText>
-            </RoleButton>
-            <RoleButton
-              onClick={() => {
-                this.setRole('host');
-              }}
-            >
-              <RoleIcon>
-                <MdMic />
-              </RoleIcon>
-              <RoleText>Quizmaster</RoleText>
-            </RoleButton>
-            <RoleButton
-              onClick={() => {
-                this.setRole('spectator');
-              }}
-            >
-              <RoleIcon>
-                <MdAirplay />
-              </RoleIcon>
-              <RoleText>Spectator</RoleText>
-            </RoleButton>
+            <SelectionBox>
+              <SingleSelection
+                onClick={() => {
+                  this.setRole('player');
+                }}
+              >
+                <Players />
+                <SelectionText>Player ></SelectionText>
+              </SingleSelection>
+            </SelectionBox>
+            <SelectionBox>
+              <SingleSelection
+                onClick={() => {
+                  this.setRole('host');
+                }}
+              >
+                <Microphone />
+                <SelectionText>Quizmaster ></SelectionText>
+              </SingleSelection>
+            </SelectionBox>
           </SelectionWrapper>
         )}
       </React.Fragment>
