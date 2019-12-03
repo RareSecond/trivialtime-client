@@ -10,6 +10,7 @@ import StartNextQuestion from './StartNextQuestion';
 
 const Wrapper = styled.div`
   width: 100%;
+  height: 100vh;
   padding: 0 10px;
 `;
 
@@ -28,7 +29,11 @@ const FreeForAll = () => {
   }
 
   if (answersStart && !allPlayersAnswered) {
-    return <CountdownBar />;
+    return (
+      <Wrapper>
+        <CountdownBar />
+      </Wrapper>
+    );
   }
 
   return (
