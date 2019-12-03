@@ -1,25 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import useDb from '../../Data/useDb';
+import Box from '../../Components/Box';
+import Button from '../../Components/Button';
 
-const Wrapper = styled.div`
-  padding: 0 10px;
-`;
-
-const PlayerWrapper = styled.div`
-  border: lightgrey 2px solid;
-  position: relative;
-  padding: 15px 10px;
+const PlayerWrapper = styled(Box)`
   margin: 20px 0;
 `;
 
 const PlayerName = styled.div`
-  background-color: white;
-  position: absolute;
-  left: 10px;
-  top: 0px;
-  padding: 0px 10px;
-  transform: translateY(-50%);
   color: ${props => props.theme.silver};
 `;
 
@@ -33,28 +22,6 @@ const ButtonWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-top: 15px;
-`;
-
-const AnswerButton = styled.button`
-  color: ${props => props.theme.clouds};
-  padding: 10px 20px;
-  cursor: pointer;
-  border-radius: 15px;
-  border: none;
-  opacity: ${props => (props.notIndicated ? 0.3 : 1)};
-
-  &:focus {
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.4);
-    outline: none;
-  }
-`;
-
-const CorrectButton = styled(AnswerButton)`
-  background-color: ${props => props.theme.turquoise};
-`;
-
-const IncorrectButton = styled(AnswerButton)`
-  background-color: ${props => props.theme.alizarin};
 `;
 
 const MarkPlayers = ({ answeredPlayers }) => {
@@ -75,34 +42,32 @@ const MarkPlayers = ({ answeredPlayers }) => {
     });
   };
 
-  return (
-    <Wrapper>
-      {answeredPlayers.map(player => {
-        return (
-          <PlayerWrapper key={player.username}>
-            <PlayerName>{player.username}</PlayerName>
-            <PlayerAnswer>{player.answer}</PlayerAnswer>
-            <ButtonWrapper>
-              <CorrectButton
-                onClick={() => markCorrect(player)}
-                notIndicated={player.answerCorrect === false}
-                disabled={player.answerCorrect !== undefined}
-              >
-                Correct
-              </CorrectButton>
-              <IncorrectButton
-                onClick={() => markIncorrect(player)}
-                notIndicated={player.answerCorrect === true}
-                disabled={player.answerCorrect !== undefined}
-              >
-                Incorrect
-              </IncorrectButton>
-            </ButtonWrapper>
-          </PlayerWrapper>
-        );
-      })}
-    </Wrapper>
-  );
+  return answeredPlayers.map(player => {
+    return (
+      <PlayerWrapper key={player.username}>
+        <PlayerName>{player.username}</PlayerName>
+        <PlayerAnswer>{player.answer}</PlayerAnswer>
+        <ButtonWrapper>
+          <Button
+            bgColor="turquoise"
+            onClick={() => markCorrect(player)}
+            notIndicated={player.answerCorrect === false}
+            disabled={player.answerCorrect !== undefined}
+          >
+            Correct
+          </Button>
+          <Button
+            bgColor="alizarin"
+            onClick={() => markIncorrect(player)}
+            notIndicated={player.answerCorrect === true}
+            disabled={player.answerCorrect !== undefined}
+          >
+            Incorrect
+          </Button>
+        </ButtonWrapper>
+      </PlayerWrapper>
+    );
+  });
 };
 
 export default MarkPlayers;

@@ -10,12 +10,14 @@ const App = () => {
 
   useEffect(() => {
     const config = {
-      apiKey: 'AIzaSyDk5fA_myXb5I91RyKZBd5RpdZe63qIlNQ',
-      authDomain: 'trivialtime-jd.firebaseapp.com',
-      databaseURL: 'https://trivialtime-jd.firebaseio.com',
-      projectId: 'trivialtime-jd',
-      storageBucket: 'trivialtime-jd.appspot.com',
-      messagingSenderId: '1096818248339',
+      apiKey: 'AIzaSyARZJ395Q_BH7FOsNqJ7IYiajHK1rf9pvs',
+      authDomain: 'trivialtime-dev.firebaseapp.com',
+      databaseURL: 'https://trivialtime-dev.firebaseio.com',
+      projectId: 'trivialtime-dev',
+      storageBucket: 'trivialtime-dev.appspot.com',
+      messagingSenderId: '643695006662',
+      appId: '1:643695006662:web:c1c9fbcab18dcdde2c58c7',
+      measurementId: 'G-J6DLYN3B4G',
     };
 
     initializeApp(config);

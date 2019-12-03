@@ -2,6 +2,7 @@ import React from 'react';
 import useDb from '../../Data/useDb';
 import { generateResettedPlayersFFA } from '../../playerFunctions';
 import useDbValue from '../../Data/useDbValue';
+import FullWidthButton from '../../Components/FullWidthButton';
 
 const StartNextQuestion = () => {
   const db = useDb();
@@ -20,7 +21,11 @@ const StartNextQuestion = () => {
       db.ref('users').set(generateResettedPlayersFFA(players));
     });
   };
-  return <button onClick={startQuestion}>Start next question</button>;
+  return (
+    <FullWidthButton bgColor="midnightBlue" onClick={startQuestion}>
+      Start next question
+    </FullWidthButton>
+  );
 };
 
 export default StartNextQuestion;
