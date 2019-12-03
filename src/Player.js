@@ -5,6 +5,8 @@ import Buzzer from './Player/Buzzer';
 import useDb from './Data/useDb';
 import useDbValue from './Data/useDbValue';
 import FreeForAll from './Player/FreeForAll';
+import Box from './Components/Box';
+import FullWidthButton from './Components/FullWidthButton';
 
 const Wrapper = styled.div`
   display: flex;
@@ -21,29 +23,15 @@ const UsernameInput = styled.input`
   border-bottom: 2px solid ${props => props.theme.turquoise};
   text-align: center;
   text-transform: uppercase;
-  font-size: 15vw;
+  font-size: 10vw;
   font-family: 'Staatliches', cursive;
-  color: ${props => props.theme.clouds};
+  color: ${props => props.theme.turquoise};
   background-color: transparent;
+  margin-bottom: 15px;
 
   &:focus {
     outline: none;
   }
-`;
-
-const Button = styled.div`
-  margin: 20px auto;
-  background-color: ${props => props.theme.turquoise};
-  width: 100%;
-  color: ${props => props.theme.clouds};
-  padding: 20px;
-  box-sizing: border-box;
-  text-align: center;
-  text-transform: uppercase;
-  font-size: 15vw;
-  font-family: 'Staatliches', cursive;
-  border-radius: 10px;
-  opacity: ${props => (props.disabled ? 0.2 : 1)};
 `;
 
 const EilandGif = styled.img`
@@ -128,14 +116,16 @@ const Player = () => {
   return (
     <Wrapper>
       {!lockedIn ? (
-        <React.Fragment>
+        <Box>
           <UsernameInput
             onChange={lockUsername}
             placeholder="Your name"
             value={username}
           />
-          <Button onClick={join}>Doe mee!</Button>
-        </React.Fragment>
+          <FullWidthButton bgColor="turquoise" onClick={join}>
+            Doe mee!
+          </FullWidthButton>
+        </Box>
       ) : (
         <React.Fragment>
           {player && player.active ? (

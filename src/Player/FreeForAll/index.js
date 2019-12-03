@@ -43,6 +43,10 @@ const FreeForAll = ({ userKey = '-Lu2DGB6P1FS9KxGaBbw' }) => {
   const currentPlayer = useDbValue(`users/${userKey}`);
   const answersStart = useDbValue('answersStart');
 
+  if (!currentPlayer) {
+    return null;
+  }
+
   if (currentPlayer.answer) {
     if (currentPlayer.answerCorrect !== undefined) {
       if (currentPlayer.answerCorrect) {

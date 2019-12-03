@@ -1,5 +1,7 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
+import Microphone from './Icons/Microphone';
+import Players from './Icons/Players';
 
 const Wrapper = styled.div`
   display: inline-block;
@@ -35,22 +37,12 @@ const Inner = styled.div`
   animation: ${pulse} 2.4s cubic-bezier(0, 0.2, 0.8, 1) infinite;
 `;
 
-const Logo = styled.svg`
-  width: 75px;
-  height: 75px;
-  fill: ${props => props.theme.turquoise};
-`;
-
 const Loader = ({ type }) => {
   return (
     <Wrapper>
       <Inner>
-        {type === 'quizmaster' && (
-          <Microphone />
-        )}
-        {type === 'players' && (
-          <Players />
-        )}
+        {type === 'quizmaster' && <Microphone />}
+        {type === 'players' && <Players />}
       </Inner>
     </Wrapper>
   );
