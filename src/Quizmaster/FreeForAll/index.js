@@ -15,10 +15,8 @@ const Wrapper = styled.div`
 `;
 
 const FreeForAll = () => {
-  const { answeredPlayers, activePlayers } = usePlayers();
+  const { answeredPlayers } = usePlayers();
   const answersStart = useDbValue('answersStart');
-
-  const allPlayersAnswered = answeredPlayers.length === activePlayers.length;
 
   if (!answersStart) {
     return (
@@ -28,20 +26,15 @@ const FreeForAll = () => {
     );
   }
 
-  if (answersStart && !allPlayersAnswered) {
+  if (answersStart) {
     return (
       <Wrapper>
         <CountdownBar />
+        <MarkPlayers answeredPlayers={answeredPlayers} />
+        <StartNextQuestion />
       </Wrapper>
     );
   }
-
-  return (
-    <Wrapper>
-      <MarkPlayers answeredPlayers={answeredPlayers} />
-      <StartNextQuestion />
-    </Wrapper>
-  );
 
   // return (
   //   <Wrapper>
