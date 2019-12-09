@@ -6,6 +6,7 @@ import Button from '../../Components/Button';
 
 const PlayerWrapper = styled(Box)`
   margin: 20px 0;
+  opacity: ${props => (props.corrected ? 0.25 : 1)};
 `;
 
 const PlayerName = styled.div`
@@ -44,7 +45,10 @@ const MarkPlayers = ({ answeredPlayers }) => {
 
   return answeredPlayers.map(player => {
     return (
-      <PlayerWrapper key={player.username}>
+      <PlayerWrapper
+        key={player.username}
+        corrected={player.answerCorrect !== undefined}
+      >
         <PlayerName>{player.username}</PlayerName>
         <PlayerAnswer>{player.answer}</PlayerAnswer>
         <ButtonWrapper>
