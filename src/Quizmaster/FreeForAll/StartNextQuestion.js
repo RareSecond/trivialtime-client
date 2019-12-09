@@ -10,6 +10,7 @@ const StartNextQuestion = () => {
 
   const startQuestion = () => {
     db.ref('answersStart').remove();
+    db.ref('answersClosed').remove();
     db.ref('currentQuestion').set(currentQuestion + 1);
 
     // We have to first get the players here again,

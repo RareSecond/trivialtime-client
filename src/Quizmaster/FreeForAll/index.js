@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
 import OpenAnswers from './OpenAnswers';
@@ -7,6 +7,7 @@ import usePlayers from '../../Data/usePlayers';
 import MarkPlayers from './MarkPlayers';
 import useDbValue from '../../Data/useDbValue';
 import StartNextQuestion from './StartNextQuestion';
+import useDb from '../../Data/useDb';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -17,6 +18,21 @@ const Wrapper = styled.div`
 const FreeForAll = () => {
   const { answeredPlayers } = usePlayers();
   const answersStart = useDbValue('answersStart');
+
+  const db = useDb();
+
+  useEffect(
+    () => {
+      if (answersStart) {
+        const timeOut = setTimeout(() => {
+          db.ref('answersClosed').set(true);
+        }, 20 * 1000);
+
+        return () => clearTimeout(timeOut);
+      }
+    },
+    [answersStart]
+  );
 
   if (!answersStart) {
     return (

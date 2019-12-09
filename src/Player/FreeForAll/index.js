@@ -44,6 +44,7 @@ const ResultMessage = styled.div`
 const FreeForAll = ({ userKey = '-Lu2DGB6P1FS9KxGaBbw' }) => {
   const currentPlayer = useDbValue(`users/${userKey}`);
   const answersStart = useDbValue('answersStart');
+  const answersClosed = useDbValue('answersClosed');
 
   if (!currentPlayer) {
     return null;
@@ -84,6 +85,15 @@ const FreeForAll = ({ userKey = '-Lu2DGB6P1FS9KxGaBbw' }) => {
             <BoxMessage>Awaiting results</BoxMessage>
           </InnerWrapper>
         </MyBox>
+        <Scores />
+      </Wrapper>
+    );
+  }
+
+  if (answersClosed) {
+    return (
+      <Wrapper>
+        <CountdownBar />
         <Scores />
       </Wrapper>
     );
