@@ -5649,6 +5649,13 @@ rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+react-countdown-circle-timer@^1.0.41:
+  version "1.0.41"
+  resolved "https://registry.yarnpkg.com/react-countdown-circle-timer/-/react-countdown-circle-timer-1.0.41.tgz#c5b9fcedd70491b697358935ec2f21eb0be7d72c"
+  integrity sha512-8wQ0rqKBqo7ohC5pjPxvq+4B45lKHfg0cub6BvFueEJ9mcgfxaqVsvM/o8nOYArq14l2Viz61PLcRUTHrvOPcQ==
+  dependencies:
+    use-elapsed-time "^1.1.1"
+
 react-dom@^16.8.2:
   version "16.8.2"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.8.2.tgz#7c8a69545dd554d45d66442230ba04a6a0a3c3d3"
@@ -6892,6 +6899,11 @@ url@0.11.0, url@^0.11.0:
   dependencies:
     punycode "1.3.2"
     querystring "0.2.0"
+
+use-elapsed-time@^1.1.1:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/use-elapsed-time/-/use-elapsed-time-1.1.3.tgz#f89f225538f44e83699a93a35a02fe3943e7bf15"
+  integrity sha512-70qb5RCIPV/2s+mNOCwo30e3/AxMet9i/zYsS4EE9LwY5bFy+WQg3sC9svgcnb+jUYzZCz9tKv6B23ZGgakRuQ==
 
 use@^3.1.0:
   version "3.1.1"

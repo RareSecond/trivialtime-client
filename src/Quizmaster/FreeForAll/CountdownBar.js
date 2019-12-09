@@ -1,47 +1,52 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import dayjs from 'dayjs';
-import useDbValue from '../../Data/useDbValue';
+import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 
-const Bar = styled.div.attrs({
-  style: ({ percentLeft }) => ({
-    width: `${percentLeft}%`,
-  }),
-})`
-  background-color: red;
-  height: 20px;
+const Wrapper = styled.div`
+  margin: 10px 0;
 `;
 
-const CountdownBar = () => {
-  const [percentLeft, setPercentLeft] = useState(100);
-  const answersStart = useDbValue('answersStart');
+const TimerInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
-  const animateBar = () => {
-    const msToAnswer = 1000 * 20;
-    const closeAnswersAt = answersStart + msToAnswer;
-    const currentMiliseconds = dayjs().valueOf();
-    if (currentMiliseconds < closeAnswersAt) {
-      const currentPercentLeft =
-        ((closeAnswersAt - currentMiliseconds) /
-          (closeAnswersAt - answersStart)) *
-        100;
-      setPercentLeft(currentPercentLeft);
-      requestAnimationFrame(animateBar);
-    }
-  };
+const TimerValue = styled.div`
+  font-size: 50px;
+`;
 
-  useEffect(
-    () => {
-      if (!answersStart) {
-        setPercentLeft(0);
-      } else {
-        animateBar();
-      }
-    },
-    [answersStart]
+const TimerText = styled.div`
+  max-width: 360px;
+  text-align: center;
+  font-size: 16px;
+`;
+
+const renderTime = value => {
+  if (value === 0) {
+    return <TimerText>Te laat...</TimerText>;
+  }
+
+  return (
+    <TimerInfo>
+      <TimerValue>{value}</TimerValue>
+      <TimerText>seconden</TimerText>
+    </TimerInfo>
   );
+};
 
-  return <Bar percentLeft={percentLeft} />;
+const CountdownBar = () => {
+  return (
+    <Wrapper>
+      <CountdownCircleTimer
+        isPlaying
+        durationSeconds={20}
+        colors={[['#1abc9c']]}
+        renderTime={renderTime}
+        onComplete={() => [false, 1000]}
+      />
+    </Wrapper>
+  );
 };
 
 export default CountdownBar;

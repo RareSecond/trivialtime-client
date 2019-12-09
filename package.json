@@ -25,6 +25,7 @@
     "prop-types": "^15.6.2",
     "pusher-js": "^4.3.1",
     "react": "^16.8.2",
+    "react-countdown-circle-timer": "^1.0.41",
     "react-dom": "^16.8.2",
     "react-hot-loader": "^4.6.5",
     "react-icons": "^3.4.0",
