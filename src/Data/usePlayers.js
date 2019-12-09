@@ -3,6 +3,7 @@ import {
   getNextPlayer,
   getActivePlayers,
   getAnsweredPlayers,
+  getPlayersByTotalScore,
 } from '../playerFunctions';
 
 const usePlayers = () => {
@@ -15,6 +16,7 @@ const usePlayers = () => {
     eligibilePlayers: [],
     activePlayers: getActivePlayers(allPlayers),
     answeredPlayers: getAnsweredPlayers(allPlayers),
+    playersByScore: getPlayersByTotalScore(allPlayers),
   };
 };
 

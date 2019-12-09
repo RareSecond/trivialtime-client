@@ -5,9 +5,11 @@ import useDbValue from '../../Data/useDbValue';
 import CountdownBar from '../../Quizmaster/FreeForAll/CountdownBar';
 import Loader from '../../Components/Loader';
 import Box from '../../Components/Box';
+import Scores from './Scores';
 
 const Wrapper = styled.div`
   width: 100%;
+  position: relative;
 `;
 
 const MyBox = styled(Box)`
@@ -57,6 +59,7 @@ const FreeForAll = ({ userKey = '-Lu2DGB6P1FS9KxGaBbw' }) => {
                 <ResultMessage>Correct!</ResultMessage>
               </InnerWrapper>
             </MyBox>
+            <Scores />
           </Wrapper>
         );
       }
@@ -68,6 +71,7 @@ const FreeForAll = ({ userKey = '-Lu2DGB6P1FS9KxGaBbw' }) => {
               <ResultMessage>Incorrect..</ResultMessage>
             </InnerWrapper>
           </MyBox>
+          <Scores />
         </Wrapper>
       );
     }
@@ -80,6 +84,7 @@ const FreeForAll = ({ userKey = '-Lu2DGB6P1FS9KxGaBbw' }) => {
             <BoxMessage>Awaiting results</BoxMessage>
           </InnerWrapper>
         </MyBox>
+        <Scores />
       </Wrapper>
     );
   }
@@ -89,6 +94,7 @@ const FreeForAll = ({ userKey = '-Lu2DGB6P1FS9KxGaBbw' }) => {
       <Wrapper>
         <CountdownBar />
         <AnswerInput userKey={userKey} />
+        <Scores />
       </Wrapper>
     );
   }
@@ -99,6 +105,7 @@ const FreeForAll = ({ userKey = '-Lu2DGB6P1FS9KxGaBbw' }) => {
         <Loader type="quizmaster" />
         <BoxMessage>Waiting for quizmaster</BoxMessage>
       </Box>
+      <Scores />
     </Wrapper>
   );
 };
