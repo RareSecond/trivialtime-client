@@ -17,13 +17,13 @@ const Wrapper = styled.div`
 
 const FreeForAll = () => {
   const { answeredPlayers } = usePlayers();
-  const answersStart = useDbValue('answersStart');
+  const answersOpen = useDbValue('answersOpen');
 
   const db = useDb();
 
   useEffect(
     () => {
-      if (answersStart) {
+      if (answersOpen) {
         const timeOut = setTimeout(() => {
           db.ref('answersClosed').set(true);
         }, 20 * 1000);
@@ -31,10 +31,10 @@ const FreeForAll = () => {
         return () => clearTimeout(timeOut);
       }
     },
-    [answersStart]
+    [answersOpen]
   );
 
-  if (!answersStart) {
+  if (!answersOpen) {
     return (
       <Wrapper>
         <OpenAnswers />
@@ -42,7 +42,7 @@ const FreeForAll = () => {
     );
   }
 
-  if (answersStart) {
+  if (answersOpen) {
     return (
       <Wrapper>
         <CountdownBar />

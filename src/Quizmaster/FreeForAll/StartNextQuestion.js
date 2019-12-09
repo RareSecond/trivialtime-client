@@ -9,7 +9,7 @@ const StartNextQuestion = () => {
   const currentQuestion = useDbValue('currentQuestion');
 
   const startQuestion = () => {
-    db.ref('answersStart').remove();
+    db.ref('answersOpen').remove();
     db.ref('answersClosed').remove();
     db.ref('currentQuestion').set(currentQuestion + 1);
 

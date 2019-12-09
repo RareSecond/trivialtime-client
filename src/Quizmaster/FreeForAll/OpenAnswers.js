@@ -19,7 +19,7 @@ const OpenAnswers = () => {
       <FullWidthButton
         bgColor="turquoise"
         onClick={() => {
-          db.ref('answersStart').set(dayjs().valueOf());
+          db.ref('answersOpen').set(true);
         }}
       >
         Open answers

@@ -43,7 +43,7 @@ const ResultMessage = styled.div`
 
 const FreeForAll = ({ userKey = '-Lu2DGB6P1FS9KxGaBbw' }) => {
   const currentPlayer = useDbValue(`users/${userKey}`);
-  const answersStart = useDbValue('answersStart');
+  const answersOpen = useDbValue('answersOpen');
   const answersClosed = useDbValue('answersClosed');
 
   if (!currentPlayer) {
@@ -99,7 +99,7 @@ const FreeForAll = ({ userKey = '-Lu2DGB6P1FS9KxGaBbw' }) => {
     );
   }
 
-  if (answersStart) {
+  if (answersOpen) {
     return (
       <Wrapper>
         <CountdownBar />
