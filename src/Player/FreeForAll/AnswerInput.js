@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import dayjs from 'dayjs';
 import useDb from '../../Data/useDb';
 import useDbValue from '../../Data/useDbValue';
+import Box from '../../Components/Box';
 
 const UsernameInput = styled.input`
   width: 100%;
@@ -23,11 +24,11 @@ const UsernameInput = styled.input`
 `;
 
 const Button = styled.div`
-  margin: 20px auto;
+  margin-top: 20px;
   background-color: ${props => props.theme.turquoise};
   width: 100%;
   color: white;
-  padding: 20px;
+  padding: 10px;
   box-sizing: border-box;
   text-align: center;
   text-transform: uppercase;
@@ -68,14 +69,14 @@ const AnswerInput = ({ userKey }) => {
   );
 
   return (
-    <React.Fragment>
+    <Box>
       <UsernameInput
         value={answer}
         placeholder="Your answer"
         onChange={e => setAnswer(e.target.value)}
       />
       <Button onClick={saveAnswer}>Verstuur</Button>
-    </React.Fragment>
+    </Box>
   );
 };
 
