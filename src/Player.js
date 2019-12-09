@@ -7,6 +7,7 @@ import useDbValue from './Data/useDbValue';
 import FreeForAll from './Player/FreeForAll';
 import Box from './Components/Box';
 import FullWidthButton from './Components/FullWidthButton';
+import StatusBox from './Components/StatusBox';
 
 const Wrapper = styled.div`
   display: flex;
@@ -32,13 +33,6 @@ const UsernameInput = styled.input`
   &:focus {
     outline: none;
   }
-`;
-
-const EilandGif = styled.img`
-  width: 100%;
-  height: auto;
-  display: block;
-  margin-top: 10px;
 `;
 
 const Player = () => {
@@ -107,8 +101,7 @@ const Player = () => {
   if (!quizOngoing) {
     return (
       <Wrapper>
-        Waiting for quizmaster to start today&apos;s quiz..
-        <EilandGif src="https://media1.giphy.com/media/3o6ZtfzV59Q8faMmmk/giphy.gif?cid=790b7611c44813f697fda481b3394ae130c5f036e6910a15&rid=giphy.gif" />
+        <StatusBox type="quizmaster" text="Waiting for start of quiz" />
       </Wrapper>
     );
   }

@@ -6,6 +6,7 @@ import CountdownBar from '../../Quizmaster/FreeForAll/CountdownBar';
 import Loader from '../../Components/Loader';
 import Box from '../../Components/Box';
 import Scores from './Scores';
+import StatusBox from '../../Components/StatusBox';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -109,15 +110,7 @@ const FreeForAll = ({ userKey = '-Lu2DGB6P1FS9KxGaBbw' }) => {
     );
   }
 
-  return (
-    <Wrapper>
-      <Box padding={50}>
-        <Loader type="quizmaster" />
-        <BoxMessage>Waiting for quizmaster</BoxMessage>
-      </Box>
-      <Scores />
-    </Wrapper>
-  );
+  return <StatusBox type="quizmaster" text="Waiting for next question" />;
 };
 
 export default FreeForAll;

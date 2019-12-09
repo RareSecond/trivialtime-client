@@ -15,8 +15,7 @@ const ScoreIconWrapper = styled.div`
 `;
 
 const ScoreIcon = styled(MdPoll)`
-  color: ${props =>
-    props.scoresVisible ? props.theme.turquoise : props.theme.clouds};
+  color: ${props => props.theme.turquoise};
   font-size: 40px;
 `;
 
@@ -46,7 +45,6 @@ const Scores = () => {
         <ScoreIcon
           onTouchStart={() => setScoresVisible(true)}
           onTouchEnd={() => setScoresVisible(false)}
-          scoresVisible
         />
       </ScoreIconWrapper>
     </Wrapper>

@@ -24,7 +24,7 @@ const TimerText = styled.div`
 
 const renderTime = value => {
   if (value === 0) {
-    return <TimerText>Te laat...</TimerText>;
+    return <TimerText>Time's up!</TimerText>;
   }
 
   return (

@@ -8,6 +8,7 @@ import MarkPlayers from './MarkPlayers';
 import useDbValue from '../../Data/useDbValue';
 import StartNextQuestion from './StartNextQuestion';
 import useDb from '../../Data/useDb';
+import Scores from '../../Player/FreeForAll/Scores';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -38,6 +39,7 @@ const FreeForAll = () => {
     return (
       <Wrapper>
         <OpenAnswers />
+        <Scores />
       </Wrapper>
     );
   }
@@ -48,6 +50,7 @@ const FreeForAll = () => {
         <CountdownBar />
         <MarkPlayers answeredPlayers={answeredPlayers} />
         <StartNextQuestion />
+        <Scores />
       </Wrapper>
     );
   }
