@@ -6,14 +6,18 @@ import usePlayers from '../../Data/usePlayers';
 
 const Wrapper = styled.div``;
 
+const ScoreIconWrapper = styled.div`
+  z-index: 20;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  padding: 10px;
+`;
+
 const ScoreIcon = styled(MdPoll)`
   color: ${props =>
     props.scoresVisible ? props.theme.turquoise : props.theme.clouds};
-  font-size: 30px;
-  z-index: 20;
-  position: fixed;
-  top: 0;
-  right: 0;
+  font-size: 40px;
 `;
 
 const ScoreWrapper = styled.div`
@@ -38,11 +42,13 @@ const Scores = () => {
           <BarScores players={playersByScore} />
         </ScoreWrapper>
       )}
-      <ScoreIcon
-        onTouchStart={() => setScoresVisible(true)}
-        onTouchEnd={() => setScoresVisible(false)}
-        scoresVisible
-      />
+      <ScoreIconWrapper>
+        <ScoreIcon
+          onTouchStart={() => setScoresVisible(true)}
+          onTouchEnd={() => setScoresVisible(false)}
+          scoresVisible
+        />
+      </ScoreIconWrapper>
     </Wrapper>
   );
 };
