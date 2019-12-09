@@ -7,6 +7,7 @@ import Loader from '../../Components/Loader';
 import Box from '../../Components/Box';
 import Scores from './Scores';
 import StatusBox from '../../Components/StatusBox';
+import QuestionInfo from '../QuestionInfo';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -62,6 +63,7 @@ const FreeForAll = ({ userKey = '-Lu2DGB6P1FS9KxGaBbw' }) => {
               </InnerWrapper>
             </MyBox>
             <Scores />
+            <QuestionInfo />
           </Wrapper>
         );
       }
@@ -74,6 +76,7 @@ const FreeForAll = ({ userKey = '-Lu2DGB6P1FS9KxGaBbw' }) => {
             </InnerWrapper>
           </MyBox>
           <Scores />
+          <QuestionInfo />
         </Wrapper>
       );
     }
@@ -87,6 +90,7 @@ const FreeForAll = ({ userKey = '-Lu2DGB6P1FS9KxGaBbw' }) => {
           </InnerWrapper>
         </MyBox>
         <Scores />
+        <QuestionInfo />
       </Wrapper>
     );
   }
@@ -96,6 +100,7 @@ const FreeForAll = ({ userKey = '-Lu2DGB6P1FS9KxGaBbw' }) => {
       <Wrapper>
         <CountdownBar />
         <Scores />
+        <QuestionInfo />
       </Wrapper>
     );
   }
@@ -106,6 +111,7 @@ const FreeForAll = ({ userKey = '-Lu2DGB6P1FS9KxGaBbw' }) => {
         <CountdownBar />
         <AnswerInput userKey={userKey} />
         <Scores />
+        <QuestionInfo />
       </Wrapper>
     );
   }

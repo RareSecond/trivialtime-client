@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Box from './Box';
 import Loader from './Loader';
 import Scores from '../Player/FreeForAll/Scores';
+import QuestionInfo from '../Player/QuestionInfo';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -23,6 +24,7 @@ const StatusBox = ({ type, text }) => {
         <BoxMessage>{text}</BoxMessage>
       </Box>
       <Scores />
+      <QuestionInfo />
     </Wrapper>
   );
 };
