@@ -7,7 +7,18 @@ import Button from '../../Components/Button';
 
 const PlayerWrapper = styled(Box)`
   margin: 20px 0;
-  opacity: ${props => (props.corrected ? 0.25 : 1)};
+
+  ${props => {
+    if (props.answerCorrect !== undefined) {
+      if (props.answerCorrect === false) {
+        return `background-color: ${props.theme.alizarin}`;
+      }
+
+      return `background-color: ${props.theme.turquoise}`;
+    }
+
+    return null;
+  }};
 `;
 
 const PlayerName = styled.div`
@@ -49,24 +60,15 @@ const MarkPlayers = ({ answeredPlayers }) => {
       <PlayerWrapper
         key={player.username}
         corrected={player.answerCorrect !== undefined}
+        answerCorrect={player.answerCorrect}
       >
         <PlayerName>{player.username}</PlayerName>
         <PlayerAnswer>{player.answer}</PlayerAnswer>
         <ButtonWrapper>
-          <Button
-            bgColor="turquoise"
-            onClick={() => markCorrect(player)}
-            notIndicated={player.answerCorrect === false}
-            disabled={player.answerCorrect !== undefined}
-          >
+          <Button bgColor="turquoise" onClick={() => markCorrect(player)}>
             Correct
           </Button>
-          <Button
-            bgColor="alizarin"
-            onClick={() => markIncorrect(player)}
-            notIndicated={player.answerCorrect === true}
-            disabled={player.answerCorrect !== undefined}
-          >
+          <Button bgColor="alizarin" onClick={() => markIncorrect(player)}>
             Incorrect
           </Button>
         </ButtonWrapper>
