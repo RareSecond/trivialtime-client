@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { database } from 'firebase';
 import useDb from '../../Data/useDb';
 import Box from '../../Components/Box';
 
@@ -43,6 +44,7 @@ const AnswerInput = ({ userKey }) => {
   const saveAnswer = () => {
     db.ref(`users/${userKey}`).update({
       answer,
+      answeredAt: database.ServerValue.TIMESTAMP,
     });
   };
 

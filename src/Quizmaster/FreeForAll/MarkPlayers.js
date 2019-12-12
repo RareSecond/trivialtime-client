@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import _ from 'lodash';
 import useDb from '../../Data/useDb';
 import Box from '../../Components/Box';
 import Button from '../../Components/Button';
@@ -43,7 +44,7 @@ const MarkPlayers = ({ answeredPlayers }) => {
     });
   };
 
-  return answeredPlayers.map(player => {
+  return _.sortBy(answeredPlayers, 'answeredAt').map(player => {
     return (
       <PlayerWrapper
         key={player.username}
