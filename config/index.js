@@ -1,0 +1,76 @@
+module.exports = {
+  tt: {
+    firebase: {
+      apiKey: 'AIzaSyDk5fA_myXb5I91RyKZBd5RpdZe63qIlNQ',
+      authDomain: 'trivialtime-jd.firebaseapp.com',
+      databaseURL: 'https://trivialtime-jd.firebaseio.com',
+      projectId: 'trivialtime-jd',
+      storageBucket: 'trivialtime-jd.appspot.com',
+      messagingSenderId: '1096818248339',
+    },
+    questionsPerDay: 6,
+  },
+  ttd: {
+    firebase: {
+      apiKey: 'AIzaSyARZJ395Q_BH7FOsNqJ7IYiajHK1rf9pvs',
+      authDomain: 'trivialtime-dev.firebaseapp.com',
+      databaseURL: 'https://trivialtime-dev.firebaseio.com',
+      projectId: 'trivialtime-dev',
+      storageBucket: 'trivialtime-dev.appspot.com',
+      messagingSenderId: '643695006662',
+      appId: '1:643695006662:web:c1c9fbcab18dcdde2c58c7',
+      measurementId: 'G-J6DLYN3B4G',
+    },
+    questionsPerDay: 15,
+  },
+  ttxl: {
+    firebase: {
+      apiKey: 'AIzaSyBzPuFyIOlebMGvA7zFlE2RVudlTp-UcTA',
+      authDomain: 'trivialtime-xl.firebaseapp.com',
+      databaseURL: 'https://trivialtime-xl.firebaseio.com',
+      projectId: 'trivialtime-xl',
+      storageBucket: 'trivialtime-xl.appspot.com',
+      messagingSenderId: '438285618050',
+      appId: '1:438285618050:web:471cf56f2b5ac0edcb9d9b',
+      measurementId: 'G-MC5QNSKHV2',
+    },
+    questionsPerDay: 999999,
+  },
+  ttmgc: {
+    firebase: {
+      apiKey: 'AIzaSyBDrYWWwNaXIEA9wSS-uhuulssu3TPOXTw',
+      authDomain: 'trivialtime-mgc.firebaseapp.com',
+      databaseURL: 'https://trivialtime-mgc.firebaseio.com',
+      projectId: 'trivialtime-mgc',
+      storageBucket: 'trivialtime-mgc.appspot.com',
+      messagingSenderId: '791991906544',
+      appId: '1:791991906544:web:a06fd1e043db74a442d235',
+      measurementId: 'G-MMPRLJNZCL',
+    },
+    questionsPerDay: 999999,
+  },
+  ttdgcq: {
+    firebase: {
+      apiKey: 'AIzaSyCXbOS5qZG_W7AfYnp9UsJo0APQwR3ZcCE',
+      authDomain: 'trivialtime-dgcq.firebaseapp.com',
+      databaseURL: 'https://trivialtime-dgcq.firebaseio.com',
+      projectId: 'trivialtime-dgcq',
+      storageBucket: 'trivialtime-dgcq.appspot.com',
+      messagingSenderId: '243593738246',
+      appId: '1:243593738246:web:53afa62c4e658274aeeb87',
+    },
+    questionsPerDay: 999999,
+  },
+  ttbnt: {
+    firebase: {
+      apiKey: 'AIzaSyCgqrhwkZU8rmcAe9wDuauhbi35huTTTkw',
+      authDomain: 'trivialtime-bnt.firebaseapp.com',
+      databaseURL: 'https://trivialtime-bnt.firebaseio.com',
+      projectId: 'trivialtime-bnt',
+      storageBucket: 'trivialtime-bnt.appspot.com',
+      messagingSenderId: '25401140056',
+      appId: '1:25401140056:web:e9004895b2fd74ca84fb2d',
+    },
+    questionsPerDay: 999999,
+  },
+};

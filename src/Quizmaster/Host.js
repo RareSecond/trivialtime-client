@@ -92,7 +92,7 @@ const Host = () => {
     });
   };
 
-  if (currentQuestion > 6) {
+  if (currentQuestion > QUESTIONSPERDAY) {
     return <EndQuizDay />;
   }
 
