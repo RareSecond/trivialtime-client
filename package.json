@@ -19,7 +19,7 @@
     "dayjs": "^1.8.17",
     "firebase": "^5.8.5",
     "immutability-helper": "^2.8.1",
-    "lodash": "^4.17.13",
+    "lodash": "^4.17.19",
     "nosleep.js": "^0.9.0",
     "prettier": "^1.14.3",
     "prop-types": "^15.6.2",
