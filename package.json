@@ -15,7 +15,7 @@
   "dependencies": {
     "@nivo/bar": "^0.52.1",
     "@nivo/line": "^0.59.3",
-    "axios": "^0.18.1",
+    "axios": "^0.21.1",
     "dayjs": "^1.8.17",
     "firebase": "^5.8.5",
     "immutability-helper": "^2.8.1",
